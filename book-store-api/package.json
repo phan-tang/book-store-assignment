@@ -1,0 +1,11 @@
+{
+    "name": "book-store-api",
+    "version": "0.0.0",
+    "scripts": {},
+    "dependencies": {
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "@types/node": "^20.3.1"
+    }
+}
