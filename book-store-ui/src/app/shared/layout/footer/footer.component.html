@@ -1,0 +1,34 @@
+<footer>
+    <div class="row d-flex" [style.minHeight.px]="minHeight" [style.width.%]="100">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 d-flex align-items-center justify-content-center">
+            <mat-icon aria-hidden="false" aria-label="book_icon" [style.height.px]="iconSize"
+                [style.width.px]="iconSize" [style.fontSize.px]="iconSize">{{iconName}}</mat-icon>
+            <span class="px-1 fw-bold fs-5">BOOK STORE</span>
+        </div>
+        <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-lg-6 col-12 d-flex align-items-center">
+                    <div class="p-3">
+                        <div class="fw-bold">CONTACT US</div>
+                        <div>123 Cong Hoa Street, Tan Binh District, Ho Chi Minh City</div>
+                        <div>(028) 12345678</div>
+                        <div>BookStore@email.com</div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 d-flex align-items-center">
+                    <div class="p-3">
+                        <div class="fw-bold mx-1">FOLLOW US</div>
+                        <div class="d-flex">
+                            <div class="bg-white rounded mx-1 p-1" *ngFor="let item of svgItems">
+                                <a [href]="item.link">
+                                    <mat-icon [svgIcon]="item.name" aria-hidden="false"
+                                        aria-label="Example thumbs up SVG icon"></mat-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
