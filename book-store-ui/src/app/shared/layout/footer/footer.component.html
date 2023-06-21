@@ -1,9 +1,8 @@
 <footer>
-    <div class="row d-flex" [style.minHeight.px]="minHeight" [style.width.%]="100">
+    <div class="row footer d-flex w-100">
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 d-flex align-items-center justify-content-center">
-            <mat-icon aria-hidden="false" aria-label="book_icon" [style.height.px]="iconSize"
-                [style.width.px]="iconSize" [style.fontSize.px]="iconSize">{{iconName}}</mat-icon>
-            <span class="px-1 fw-bold fs-5">BOOK STORE</span>
+            <mat-icon aria-hidden="false" aria-label="book_icon">{{iconName}}</mat-icon>
+            <span class="px-1 fw-bold fs-5">{{appName.toUpperCase()}}</span>
         </div>
         <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
             <div class="row d-flex align-items-center justify-content-center h-100">
@@ -22,7 +21,7 @@
                             <div class="bg-white rounded mx-1 p-1" *ngFor="let item of svgItems">
                                 <a [href]="item.link">
                                     <mat-icon [svgIcon]="item.name" aria-hidden="false"
-                                        aria-label="Example thumbs up SVG icon"></mat-icon>
+                                        aria-label="SVG icon"></mat-icon>
                                 </a>
                             </div>
                         </div>

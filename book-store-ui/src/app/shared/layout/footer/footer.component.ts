@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
+import { appIconName, appName } from '../../constants/app.constants';
+
 interface IconLink {
   name: string;
   link: string;
@@ -14,9 +16,8 @@ interface IconLink {
 })
 
 export class FooterComponent {
-  minHeight: number = 200;
-  iconName: string = "menu_book";
-  iconSize: number = 50;
+  iconName: string = appIconName;
+  appName: string = appName;
   svgItems: IconLink[] = [
     {
       name: 'facebook',
