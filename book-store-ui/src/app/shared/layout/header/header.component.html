@@ -1,0 +1,14 @@
+<mat-toolbar>
+    <mat-icon aria-hidden="false" aria-label="book_icon">{{iconName}}</mat-icon>
+    <span class="px-1 fw-bold fs-5">{{appName.toUpperCase()}}</span>
+    <div class="px-1 nav-links">
+        <span class="nav-item p-2 rounded" *ngFor="let item of leftItems">
+            <app-nav-item [navItem]="item"></app-nav-item>
+        </span>
+    </div>
+    <div class="d-flex ms-auto">
+        <span class="nav-item p-2 rounded d-flex align-items-center" *ngFor="let item of rightItems">
+            <app-nav-item [navItem]="item"></app-nav-item>
+        </span>
+    </div>
+</mat-toolbar>
