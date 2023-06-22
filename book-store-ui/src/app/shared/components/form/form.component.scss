@@ -1,0 +1,7 @@
+form {
+    .form-submit-button {
+        &.mat-button-disabled {
+            background-color: gray;
+        }
+    }
+}
