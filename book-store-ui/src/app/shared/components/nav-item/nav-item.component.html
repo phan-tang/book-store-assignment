@@ -1,5 +1,5 @@
-<a *ngIf="navItem.type==='nav-link'" [href]="navItem.link">{{navItem.title}}</a>
+<a *ngIf="navItem.type==='nav-link'" class="text-decoration-none text-white" [href]="navItem.link">{{navItem.title}}</a>
 <a *ngIf="navItem.type==='nav-icon'" [href]="navItem.link" [matTooltip]="navItem.title"
-    class="d-flex align-items-center">
+    class="d-flex align-items-center text-decoration-none text-white">
     <mat-icon>{{navItem.name}}</mat-icon>
 </a>

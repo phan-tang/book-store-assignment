@@ -13,34 +13,28 @@ export class HeaderComponent {
   iconName: string = appIconName;
   leftItems: NavItem[] = [
     {
-      link: "/books",
+      link: "/app/books",
       name: "books",
       title: "Books",
       type: "nav-link"
     },
     {
-      link: "/categories",
-      name: "categories",
-      title: "Categories",
+      link: "/app/books/add",
+      name: "add-book",
+      title: "Add Book",
       type: "nav-link"
     },
-    {
-      link: "/about",
-      name: "about",
-      title: "About",
-      type: "nav-link"
-    }
   ];
 
   rightItems: NavItem[] = [
     {
-      link: "/cart",
+      link: "/app/cart",
       name: "shopping_cart",
       title: "Cart",
       type: "nav-icon",
     },
     {
-      link: "/login",
+      link: "/auth/login",
       name: "account_circle",
       title: "Login",
       type: "nav-link"
