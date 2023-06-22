@@ -1,0 +1,19 @@
+mat-card {
+    height: 550px;
+
+    .image-wrapper {
+        height: 65%;
+    }
+
+    p {
+        margin: 0px;
+    }
+
+    del {
+        color: dimgray;
+    }
+
+    &:hover {
+        box-shadow: 0px 8px 16px 0px gray;
+    }
+}
