@@ -8,7 +8,8 @@
                     <th mat-header-cell *matHeaderCellDef class="fw-bold fs-6"> Book </th>
                     <td mat-cell *matCellDef="let element">
                         <div class="d-flex align-items-center">
-                            <img src="../../../assets/book1.jpg" class="p-1 rounded" [style.height.px]="100">
+                            <img [src]="element.image" class="p-1 rounded" [style.height.px]="100"
+                                [style.width.px]="80">
                             <div>
                                 <div class="px-1"><b>Author: </b>{{element.manufacturer_name}}</div>
                                 <div class="px-1"><b>Category: </b>{{element.category_name}}</div>
@@ -19,7 +20,7 @@
                 </ng-container>
                 <ng-container matColumnDef="final_price">
                     <th mat-header-cell *matHeaderCellDef class="fw-bold fs-6"> Final Price </th>
-                    <td mat-cell *matCellDef="let element" class="px-1"> {{element.final_price}} </td>
+                    <td mat-cell *matCellDef="let element" class="px-1"> {{unit+element.final_price}} </td>
                 </ng-container>
                 <ng-container matColumnDef="quantity">
                     <th mat-header-cell *matHeaderCellDef class="fw-bold fs-6"> Quantity </th>
@@ -42,7 +43,7 @@
             </div>
             <div class="cart-total p-3 rounded border">
                 <div class="fw-bold fs-5 text-center border-bottom py-2">Total</div>
-                <div class="fs-3 text-center py-5">100</div>
+                <div class="fs-3 text-center py-5">{{unit+cartTotal}}</div>
                 <div>
                     <button class="w-100" mat-raised-button color="primary">Order</button>
                 </div>
