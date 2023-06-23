@@ -1,0 +1,52 @@
+<div class="cart-page d-flex align-items-center justify-content-center w-100 min-vh-100 p-5">
+    <mat-progress-spinner *ngIf="!cartItems"></mat-progress-spinner>
+    <div *ngIf="cartItems" class="cart-items-list row w-100">
+        <div class="fw-bold fs-5 py-2">Cart</div>
+        <div class="py-3">
+            <table mat-table [dataSource]="cartItems.data" class="mat-elevation-z8 rounded">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class="fw-bold fs-6"> Book </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="d-flex align-items-center">
+                            <img src="../../../assets/book1.jpg" class="p-1 rounded" [style.height.px]="100">
+                            <div>
+                                <div class="px-1"><b>Author: </b>{{element.manufacturer_name}}</div>
+                                <div class="px-1"><b>Category: </b>{{element.category_name}}</div>
+                                <div class="px-1"><b>Summary: </b>{{element.name}}</div>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="final_price">
+                    <th mat-header-cell *matHeaderCellDef class="fw-bold fs-6"> Final Price </th>
+                    <td mat-cell *matCellDef="let element" class="px-1"> {{element.final_price}} </td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef class="fw-bold fs-6"> Quantity </th>
+                    <td mat-cell *matCellDef="let element" class="px-1"> {{element.quantity}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <div class="d-flex py-5">
+            <div class="discount-code">
+                <div class="fs-6 fw-bold py-2">Discount Code</div>
+                <div class="d-flex">
+                    <input [(ngModel)]="discountCode" placeholder="Enter your code">
+                    <div class="px-2">
+                        <button type="submit" color="primary" class="w-100 -" mat-raised-button
+                            (click)="applyDiscountCode()">Apply code</button>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-total p-3 rounded border">
+                <div class="fw-bold fs-5 text-center border-bottom py-2">Total</div>
+                <div class="fs-3 text-center py-5">100</div>
+                <div>
+                    <button class="w-100" mat-raised-button color="primary">Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
