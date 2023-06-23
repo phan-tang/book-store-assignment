@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment';
 export class BookService {
     constructor(private http: HttpClient) { }
 
-    getBooks(): Observable<BookListData> {
-        return this.http.get<BookListData>(environment.apiURL + 'products');
+    getBooks(params: string): Observable<BookListData> {
+        return this.http.get<BookListData>(environment.apiURL + 'products' + params);
     }
 
     getBookById(id: number): Observable<BookItemData> {

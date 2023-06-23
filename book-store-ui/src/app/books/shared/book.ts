@@ -17,6 +17,9 @@ export interface BookItemData {
 
 export interface BookListData {
     data: BookItem[],
-    meta: Object,
+    meta: {
+        total: number;
+        [key: string]: any;
+    },
     links: Object
 }

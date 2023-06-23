@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -6,18 +6,15 @@ import { PageEvent } from '@angular/material/paginator';
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss']
 })
-export class PaginatorComponent implements OnInit {
-  lenght: number = 50;
+export class PaginatorComponent {
+  @Output() changePage = new EventEmitter<PageEvent>();
+  @Input() numberOfItems!: number;
   pageSizeOptions: number[] = [10, 50, 100];
   pageIndex: number = 1;
   pageSize: number = 10;
   constructor() { }
 
-  ngOnInit(): void {
+  handleChangePage(event?: PageEvent) {
+    this.changePage.emit(event);
   }
-
-  getData(event?: PageEvent) {
-    console.log('get new page data');
-  }
-
 }
