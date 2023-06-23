@@ -1,5 +1,5 @@
-<a class="text-decoration-none" [routerLink]="['/app/books',bookItem.id]">
-    <mat-card class="book-card m-0 p-0">
+<mat-card class="book-card m-0 p-0">
+    <a class="text-decoration-none text-black" [routerLink]="['/app/books',bookItem.id]">
         <div class="image-wrapper rounded-top bg-secondary w-100">
             <img class="w-100 h-100 rounded-top" [src]="bookItem.image">
         </div>
@@ -7,7 +7,7 @@
             <h4 class="fw-bold m-0 text-truncate">{{bookItem.name}}</h4>
             <p class="book-description text-truncate">{{bookItem.summary}}</p>
             <div class="book-card-price d-flex">
-                <p class="final-price text-red fw-bold fs-6">{{unit+bookItem.final_price}}</p>
+                <p class="final-price fw-bold fs-6">{{unit+bookItem.final_price}}</p>
                 <p *ngIf="bookItem.final_price!==bookItem.price" class="px-2">
                     <del>{{unit+bookItem.price}}</del>
                 </p>
@@ -17,11 +17,11 @@
                 <p *ngIf="bookItem.quantity===0" class="text-gold fw-bold">Coming soon</p>
             </div>
         </mat-card-content>
-        <mat-card-actions class="m-0 px-2" align="end">
-            <button mat-mini-fab matTooltip="Add to-cart" color="primary" matTooltipPosition="above"
-                aria-label="Add this book to cart">
-                <mat-icon>add_shopping_cart</mat-icon>
-            </button>
-        </mat-card-actions>
-    </mat-card>
-</a>
+    </a>
+    <mat-card-actions class="m-0 px-2 z-index-5" align="end">
+        <button mat-mini-fab matTooltip="Add to cart" color="primary" matTooltipPosition="above"
+            aria-label="Add this book to cart" (click)="handleAddBookToCart()">
+            <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

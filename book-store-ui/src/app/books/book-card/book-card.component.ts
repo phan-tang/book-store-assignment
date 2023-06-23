@@ -11,4 +11,8 @@ import { unit } from 'src/app/shared/constants/app.constants';
 export class BookCardComponent {
   @Input() bookItem!: BookItem;
   unit: string = unit;
+
+  handleAddBookToCart() {
+    console.log('add book to cart');
+  }
 }

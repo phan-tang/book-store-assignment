@@ -63,7 +63,6 @@ export class RegisterPageComponent {
   ];
 
   handleSubmit(value: Object) {
-    console.log('register')
   }
 
   matchConfirmPasswordValidator(control: AbstractControl): ValidationErrors | null {
