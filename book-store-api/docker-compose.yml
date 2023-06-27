@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  mongodb:
+    container_name: book_store_db
+    image: mongo:6.0
+    env_file: ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+    ports:
+      - "27017:27017"
+    volumes:
+      - book_store_mongo_db:/data/db
+volumes:
+  book_store_mongo_db:
