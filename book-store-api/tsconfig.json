@@ -1,0 +1,25 @@
+{
+    "include": [
+        "./**/*.ts"
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "lib": [
+            "es6"
+        ],
+        "types": [
+            "node",
+            "reflect-metadata"
+        ],
+        "outDir": "dist",
+        "strict": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
