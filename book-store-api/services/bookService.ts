@@ -3,14 +3,16 @@ import { mongoose } from '../config/database';
 import { IBookService } from '../interfaces/service';
 import { IBook, ITransformedQuery, IQuery } from '../interfaces/model';
 import { Book } from '../models';
+import { BookModelConfig } from '../config/models';
 
-import BaseService from './baseService';
+import QueryService from './queryService';
 
 @injectable()
-class BookService extends BaseService implements IBookService {
+class BookService extends QueryService implements IBookService {
 
     constructor() {
         super();
+        this.modelConfig = new BookModelConfig();
     }
 
     async list(query: IQuery): Promise<IBook[]> {
@@ -26,10 +28,14 @@ class BookService extends BaseService implements IBookService {
     }
 
     async create(data: IBook): Promise<IBook> {
+        //Just admin can create new book
+        // Check unique name
         return await Book.create(data);
     }
 
     async update(id: mongoose.Types.ObjectId, data: Partial<IBook>): Promise<IBook | null> {
+        //Just admin can update book
+        //Check unique name
         let book = await Book.findById(id);
         if (!book) {
             return null;
@@ -39,6 +45,7 @@ class BookService extends BaseService implements IBookService {
     }
 
     async delete(id: mongoose.Types.ObjectId): Promise<IBook | null> {
+        //Just admin can delete book
         let book = await Book.findById(id);
         return !book ? null : await book.deleteOne();
     }

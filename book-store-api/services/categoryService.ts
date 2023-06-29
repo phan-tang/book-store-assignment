@@ -1,17 +1,18 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { ICategoryService } from '../interfaces/service';
-import { ICategory, ITransformedQuery } from '../interfaces/model';
+import { ICategory, ITransformedQuery, IQuery } from '../interfaces/model';
 import { Category } from '../models';
+import { CategoryModelConfig } from '../config/models';
 
-import BaseService from './baseService';
-import { IQuery } from '../interfaces/model';
+import QueryService from './queryService';
 
 @injectable()
-class CategoryService extends BaseService implements ICategoryService {
+class CategoryService extends QueryService implements ICategoryService {
 
     constructor() {
         super();
+        this.modelConfig = new CategoryModelConfig();
     }
 
     async list(query: IQuery): Promise<ICategory[]> {
@@ -27,10 +28,14 @@ class CategoryService extends BaseService implements ICategoryService {
     }
 
     async create(data: ICategory): Promise<ICategory> {
+        //Just admin can create new category
+        //Check unique name
         return await Category.create(data);
     }
 
     async update(id: mongoose.Types.ObjectId, data: Partial<ICategory>): Promise<ICategory | null> {
+        //Just admin can update category
+        //Check unique name
         let category = await Category.findById(id);
         if (!category) {
             return null;
@@ -40,6 +45,7 @@ class CategoryService extends BaseService implements ICategoryService {
     }
 
     async delete(id: mongoose.Types.ObjectId): Promise<ICategory | null> {
+        //Just admin can delete category
         let category = await Category.findById(id);
         return !category ? null : await category.deleteOne();
     }
