@@ -1,5 +1,5 @@
 import { mongoose } from '../config/database';
-import IBook from '../interfaces/model/iBook';
+import { IBook } from '../interfaces/model';
 
 const Schema = mongoose.Schema;
 

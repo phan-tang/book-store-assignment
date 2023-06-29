@@ -1,11 +1,6 @@
-import { Request, Response } from 'express';
+import IBaseController from './iBaseController';
 
-interface IBookController {
-    list(req: Request, res: Response): Promise<void>;
-    find(req: Request, res: Response): Promise<void>;
-    create(req: Request, res: Response): Promise<void>;
-    update(req: Request, res: Response): Promise<void>;
-    delete(req: Request, res: Response): Promise<void>;
+interface IBookController extends IBaseController {
 }
 
 export default IBookController;

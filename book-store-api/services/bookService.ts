@@ -10,28 +10,29 @@ class BookService implements IBookService {
     constructor() { }
 
     async list(): Promise<IBook[]> {
-        return [];
+        return await Book.find({});
     }
 
     async find(id: mongoose.Types.ObjectId): Promise<IBook | null> {
-        return Book.findById(id);
+        return await Book.findById(id);
     }
 
-    async create(data: Object): Promise<IBook> {
-        return Book.create(data);
+    async create(data: IBook): Promise<IBook> {
+        return await Book.create(data);
     }
 
-    async update(id: mongoose.Types.ObjectId, data: Object): Promise<IBook | null> {
-        let book = this.find(id);
+    async update(id: mongoose.Types.ObjectId, data: Partial<IBook>): Promise<IBook | null> {
+        let book = await Book.findById(id);
         if (!book) {
             return null;
         }
-        return null;
+        Object.assign(book, data);
+        return await book.save();
     }
 
-    async delete(id: mongoose.Types.ObjectId): Promise<boolean | null> {
-        let book = this.find(id);
-        return null;
+    async delete(id: mongoose.Types.ObjectId): Promise<IBook | null> {
+        let book = await Book.findById(id);
+        return !book ? null : await book.deleteOne();
     }
 }
 

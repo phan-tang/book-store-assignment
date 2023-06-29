@@ -1,16 +1,18 @@
 import express from 'express';
 import appContainer from '../inversify.config';
-import { TYPES } from '../config/types';
+import { CONTROLLER_TYPES } from '../config/types';
 import { IBookController } from '../interfaces/controller';
 
-const router = express.Router();
+const bookRouter = express.Router();
 
-let controller = appContainer.get<IBookController>(TYPES.IBookController);
+let controller = appContainer.get<IBookController>(CONTROLLER_TYPES.IBookController);
 
-router.get('/', controller.list.bind(controller));
-router.post('/', controller.create.bind(controller));
-router.get('/:bookId', controller.find.bind(controller));
-router.put('/:bookId', controller.update.bind(controller));
-router.delete('/:bookId', controller.delete.bind(controller));
+bookRouter.route('/')
+    .get(controller.list.bind(controller))
+    .post(controller.create.bind(controller));
+bookRouter.route('/:bookId')
+    .get(controller.find.bind(controller))
+    .put(controller.update.bind(controller))
+    .delete(controller.delete.bind(controller));
 
-export default router;
+export default bookRouter;
