@@ -1,3 +1,5 @@
-import BookControlller from "./bookController";
+import BookController from "./bookController";
+import UserController from "./userController";
+import CategoryController from "./categoryController";
 
-export { BookControlller };
+export { BookController, UserController, CategoryController };
