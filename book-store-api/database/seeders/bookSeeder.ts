@@ -10,14 +10,7 @@ class BookSeeder {
     }
 
     async seed() {
-        let categories: ICategory[] = await Category.find({}).exec();
-        let data: IBook[] = this.generateBooks(categories);
-
-        Book.create(data);
-        console.log('Completed seeding book data');
-    }
-
-    generateBooks(categories: ICategory[]): IBook[] {
+        let categories: string[] = ['Drama', 'Sport', 'Comedy'];
         let data: IBook[] = [];
         let existedNames: string[] = [];
         categories.forEach(category => {
@@ -28,7 +21,7 @@ class BookSeeder {
                     data.push({
                         name: name,
                         author_name: faker.company.name(),
-                        category_name: category.name,
+                        category_name: category,
                         summary: faker.commerce.productDescription(),
                         price: price,
                         final_price: price,
@@ -39,7 +32,8 @@ class BookSeeder {
                 }
             }
         });
-        return data;
+        Book.create(data);
+        console.log('Completed seeding book data');
     }
 }
 
