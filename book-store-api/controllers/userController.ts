@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { inject, injectable } from "inversify";
 import { SERVICE_TYPES } from "../config/types";
 import { mongoose } from '../config/database';
@@ -15,17 +15,17 @@ class UserController implements IUserController {
         this.service = injectService;
     }
 
-    async list(req: Request, res: Response, next: () => void) {
+    async list(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.list(req.query);
         res.status(200).send({ data: result });
     }
 
-    async create(req: Request, res: Response, next: () => void) {
+    async create(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.create(req.body);
         res.status(201).send({ data: result });
     }
 
-    async find(req: Request, res: Response, next: () => void) {
+    async find(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.find(new mongoose.Types.ObjectId(req.params['userId']));
         if (!result) {
             res.status(404).json({ error: 'This user does not exit' });
@@ -36,7 +36,7 @@ class UserController implements IUserController {
         }
     }
 
-    async update(req: Request, res: Response, next: () => void) {
+    async update(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.update(new mongoose.Types.ObjectId(req.params['userId']), req.body);
         if (!result) {
             res.status(404).json({ error: 'This user does not exit' });
@@ -47,7 +47,7 @@ class UserController implements IUserController {
         }
     }
 
-    async delete(req: Request, res: Response, next: () => void) {
+    async delete(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.delete(new mongoose.Types.ObjectId(req.params['userId']));
         if (!result) {
             res.status(404).json({ error: 'This user does not exit' });
