@@ -5,6 +5,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import helmet from 'helmet';
+import swaggerUi from "swagger-ui-express";
 import routers from './routes';
 import Database from './config/database';
 
