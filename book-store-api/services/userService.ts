@@ -1,18 +1,25 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { IUserService } from '../interfaces/service';
-import { IUser } from '../interfaces/model';
+import { ITransformedQuery, IQuery, IUser } from '../interfaces/model';
 import { User } from '../models';
 
+import BaseService from './baseService';
 import bcrypt from 'bcrypt';
 
 @injectable()
-class UserService implements IUserService {
+class UserService extends BaseService implements IUserService {
 
-    constructor() { }
+    constructor() {
+        super();
+    }
 
-    async list(): Promise<IUser[]> {
-        return await User.find({});
+    async list(query: IQuery): Promise<IUser[]> {
+        let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
+        return await User.find({}).
+            sort([[transformedQuery.sortBy, transformedQuery.sort]]).
+            skip((transformedQuery.page - 1) * transformedQuery.perPage).
+            limit(transformedQuery.perPage);
     }
 
     async find(id: mongoose.Types.ObjectId): Promise<IUser | null> {

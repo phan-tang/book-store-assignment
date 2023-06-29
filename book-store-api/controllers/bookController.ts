@@ -16,7 +16,7 @@ class BookController implements IBookController {
     }
 
     async list(req: Request, res: Response, next: () => void) {
-        let result = await this.service.list();
+        let result = await this.service.list(req.query);
         res.send(result);
     }
 

@@ -1,16 +1,24 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { IBookService } from '../interfaces/service';
-import { IBook } from '../interfaces/model';
+import { IBook, ITransformedQuery, IQuery } from '../interfaces/model';
 import { Book } from '../models';
 
+import BaseService from './baseService';
+
 @injectable()
-class BookService implements IBookService {
+class BookService extends BaseService implements IBookService {
 
-    constructor() { }
+    constructor() {
+        super();
+    }
 
-    async list(): Promise<IBook[]> {
-        return await Book.find({});
+    async list(query: IQuery): Promise<IBook[]> {
+        let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
+        return await Book.find({}).
+            sort([[transformedQuery.sortBy, transformedQuery.sort]]).
+            skip((transformedQuery.page - 1) * transformedQuery.perPage).
+            limit(transformedQuery.perPage);
     }
 
     async find(id: mongoose.Types.ObjectId): Promise<IBook | null> {

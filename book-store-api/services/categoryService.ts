@@ -1,16 +1,25 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { ICategoryService } from '../interfaces/service';
-import { ICategory } from '../interfaces/model';
+import { ICategory, ITransformedQuery } from '../interfaces/model';
 import { Category } from '../models';
 
+import BaseService from './baseService';
+import { IQuery } from '../interfaces/model';
+
 @injectable()
-class CategoryService implements ICategoryService {
+class CategoryService extends BaseService implements ICategoryService {
 
-    constructor() { }
+    constructor() {
+        super();
+    }
 
-    async list(query: Object): Promise<ICategory[]> {
-        return await Category.find({});
+    async list(query: IQuery): Promise<ICategory[]> {
+        let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
+        return await Category.find({}).
+            sort([[transformedQuery.sortBy, transformedQuery.sort]]).
+            skip((transformedQuery.page - 1) * transformedQuery.perPage).
+            limit(transformedQuery.perPage);
     }
 
     async find(id: mongoose.Types.ObjectId): Promise<ICategory | null> {

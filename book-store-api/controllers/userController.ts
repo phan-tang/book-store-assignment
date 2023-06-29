@@ -16,7 +16,7 @@ class UserController implements IUserController {
     }
 
     async list(req: Request, res: Response, next: () => void) {
-        let result = await this.service.list();
+        let result = await this.service.list(req.query);
         res.status(200).send({ data: result });
     }
 
