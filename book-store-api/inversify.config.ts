@@ -1,14 +1,21 @@
 import { Container } from 'inversify';
-import { TYPES } from './config/types';
+import { SERVICE_TYPES, CONTROLLER_TYPES } from './config/types';
 
-import { IBookController } from './interfaces/controller';
-import { BookControlller } from './controllers';
+import { IBookController, IUserController, ICategoryController } from './interfaces/controller';
+import { BookController, UserController, CategoryController } from './controllers';
 
-import { IBookService } from './interfaces/service';
-import { BookService } from './services';
+import { IBookService, IUserService, ICategoryService } from './interfaces/service';
+import { BookService, UserService, CategoryService } from './services';
 
 const appContainer = new Container();
-appContainer.bind<IBookService>(TYPES.IBookService).to(BookService);
-appContainer.bind<IBookController>(TYPES.IBookController).to(BookControlller);
+
+appContainer.bind<IBookService>(SERVICE_TYPES.IBookService).to(BookService);
+appContainer.bind<IBookController>(CONTROLLER_TYPES.IBookController).to(BookController);
+
+appContainer.bind<IUserService>(SERVICE_TYPES.IUserService).to(UserService);
+appContainer.bind<IUserController>(CONTROLLER_TYPES.IUserController).to(UserController);
+
+appContainer.bind<ICategoryService>(SERVICE_TYPES.ICategoryService).to(CategoryService);
+appContainer.bind<ICategoryController>(CONTROLLER_TYPES.ICategoryController).to(CategoryController);
 
 export default appContainer;
