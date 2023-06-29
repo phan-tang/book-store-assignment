@@ -1,7 +1,7 @@
 export interface BookItem {
     id: number;
     name: string;
-    manufacturer_name: string;
+    author_name: string;
     category_name: string;
     summary: string;
     price: string;

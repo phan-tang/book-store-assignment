@@ -19,7 +19,8 @@ const UserSchema = new Schema<IUser>({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 8
     },
     is_admin: {
         type: Boolean,

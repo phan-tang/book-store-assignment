@@ -10,7 +10,7 @@ const BookSchema = new Schema<IBook>({
         unique: true,
         maxlength: 30
     },
-    manufacturer_name: {
+    author_name: {
         type: String,
         required: true
     },
@@ -30,6 +30,10 @@ const BookSchema = new Schema<IBook>({
     final_price: {
         type: Number,
         min: 1
+    },
+    image: {
+        type: String,
+        default: ""
     },
     quantity: {
         type: Number,

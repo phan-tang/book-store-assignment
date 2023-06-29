@@ -27,7 +27,7 @@ class BookSeeder {
                     let price = parseFloat(faker.commerce.price({ min: 1, max: 100, dec: 2 }));
                     data.push({
                         name: name,
-                        manufacturer_name: faker.company.name(),
+                        author_name: faker.company.name(),
                         category_name: category.name,
                         summary: faker.commerce.productDescription(),
                         price: price,
