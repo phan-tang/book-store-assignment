@@ -24,10 +24,6 @@ const createBookRequest = z.object({
             required_error: "Book price is required",
             invalid_type_error: "Price must be a number",
         }).min(1, "Price must not be less than 1"),
-        final_price: z.number({
-            required_error: undefined,
-            invalid_type_error: "Final price must be a number"
-        }).min(1, "Final price must not be less than 1"),
         quantity: z.number({
             required_error: "Quantity is required",
             invalid_type_error: "Quantity must be a number"

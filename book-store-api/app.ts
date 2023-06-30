@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import helmet from 'helmet';
 import swaggerUi from "swagger-ui-express";
+import swaggerJSDoc from 'swagger-jsdoc';
 import routers from './routes';
 import Database from './config/database';
 
@@ -28,6 +29,40 @@ app.disable('x-powered-by');
 
 // Use routers
 app.use('/', routers);
+
+// Apply Swagger
+const swaggerDefinition = {
+    openapi: '3.0.0',
+    info: {
+        title: 'Book Store Management System API',
+        version: '1.0.0',
+        description:
+            'This is a REST API application made with Express. It retrieves data from JSONPlaceholder.',
+        license: {
+            name: 'Licensed Under MIT',
+            url: 'https://spdx.org/licenses/MIT.html',
+        },
+        contact: {
+            name: 'JSONPlaceholder',
+            url: 'https://jsonplaceholder.typicode.com',
+        },
+    },
+    servers: [
+        {
+            url: 'http://localhost:8000/api',
+            description: 'Development server',
+        },
+    ]
+};
+
+const options = {
+    swaggerDefinition,
+    // Paths to files containing OpenAPI definitions
+    apis: ['./routes/*.ts'],
+};
+
+const swaggerSpec = swaggerJSDoc(options);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Start the server
 const port = process.env.PORT;
