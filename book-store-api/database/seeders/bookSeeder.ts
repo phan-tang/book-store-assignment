@@ -1,5 +1,5 @@
-import { IBook, ICategory } from "../../interfaces/model";
-import { Book, Category } from "../../models";
+import { IBook } from "../../interfaces/model";
+import { Book } from "../../models";
 import { faker } from "@faker-js/faker";
 
 class BookSeeder {
@@ -25,7 +25,7 @@ class BookSeeder {
                         summary: faker.commerce.productDescription(),
                         price: price,
                         final_price: price,
-                        image: '',
+                        image: `../../../assets/book${faker.number.int({ min: 1, max: 10 })}.jpg`,
                         quantity: faker.number.int({ min: 1, max: 100 })
                     });
                     existedNames.push(name);
