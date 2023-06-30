@@ -9,7 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 export class PaginatorComponent {
   @Output() changePage = new EventEmitter<PageEvent>();
   @Input() numberOfItems!: number;
-  pageSizeOptions: number[] = [10, 50, 100];
+  pageSizeOptions: number[] = [10, 15, 20, 50, 100];
   pageIndex: number = 1;
   pageSize: number = 10;
   constructor() { }

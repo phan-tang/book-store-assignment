@@ -1,7 +1,7 @@
 <div class="add-book-page d-flex align-items-center justify-content-center bg-white p-5">
     <div class="add-book-form w-50 rounded border p-4">
         <h4 class=" add-book-form-header text-center fw-bold fs-4 py-3">Add Book</h4>
-        <app-form [formGroup]="addBookForm" [fieldsDisplay]="fields" [handleSubmit]="handleSubmit"
+        <app-form [formGroup]="addBookForm" [fieldsDisplay]="fields" (handleSubmit)="handleSubmit($event)"
             buttonText="Submit"></app-form>
     </div>
 </div>

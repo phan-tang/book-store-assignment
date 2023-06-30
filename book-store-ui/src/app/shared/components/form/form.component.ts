@@ -1,6 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ErrorMessages } from '../form-error-message/form-error-message.component';
+
+export interface FormItemOption {
+  value: string;
+  title: string;
+}
 
 export interface FormItem {
   name: string;
@@ -9,10 +14,7 @@ export interface FormItem {
   errorMessages?: ErrorMessages;
   suffix?: string;
   prefix?: string;
-  options?: {
-    value: string;
-    title: string;
-  }[];
+  options?: FormItemOption[];
 }
 
 @Component({
@@ -24,13 +26,12 @@ export class FormComponent {
   @Input() formGroup!: FormGroup;
   @Input() fieldsDisplay!: FormItem[];
   @Input() buttonText!: string;
-  @Input() handleSubmit!: (value: Object) => void;
-
+  @Output() handleSubmit = new EventEmitter<Object>();
   hidePassword: boolean = true;
 
   constructor() { }
 
   handleSubmitForm() {
-    this.handleSubmit && this.handleSubmit(this.formGroup.value);
+    this.handleSubmit.emit(this.formGroup.value);
   }
 }

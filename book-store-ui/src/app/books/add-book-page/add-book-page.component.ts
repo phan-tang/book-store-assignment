@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FormItem } from 'src/app/shared/components/form/form.component';
+import { FormItem, FormItemOption } from 'src/app/shared/components/form/form.component';
+import { BookService } from '../books.service';
+import { BookItemData } from '../shared/book';
 
 @Component({
   selector: 'app-add-book-page',
@@ -9,41 +11,34 @@ import { FormItem } from 'src/app/shared/components/form/form.component';
 })
 export class AddBookPageComponent implements OnInit {
   addBookForm: FormGroup = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-    category: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+    author_name: new FormControl('', [Validators.required]),
+    category_name: new FormControl('', [Validators.required]),
     quantity: new FormControl('', [Validators.required, Validators.min(0)]),
     price: new FormControl('', [Validators.required, Validators.min(1)]),
-    description: new FormControl('', [Validators.required]),
+    summary: new FormControl('', [Validators.required]),
   });
   fields: FormItem[] = [
     {
-      name: 'title',
+      name: 'name',
       title: 'Title',
       type: 'text'
     },
     {
-      name: 'category',
-      title: 'Category',
-      type: 'select',
-      options: [
-        {
-          value: 'drama',
-          title: 'Drama'
-        },
-        {
-          value: 'sport',
-          title: 'Sport'
-        },
-        {
-          value: 'comedy',
-          title: 'Comedy'
-        }
-      ]
+      name: 'author_name',
+      title: 'Author',
+      type: 'text'
     },
     {
-      name: 'quantity',
-      title: 'Quantity',
-      type: 'number'
+      name: 'category_name',
+      title: 'Category',
+      type: 'select',
+      options: []
+    },
+    {
+      name: 'summary',
+      title: 'Summary',
+      type: 'textarea'
     },
     {
       name: 'price',
@@ -52,17 +47,23 @@ export class AddBookPageComponent implements OnInit {
       prefix: '$'
     },
     {
-      name: 'description',
-      title: 'Description',
-      type: 'textarea'
+      name: 'quantity',
+      title: 'Quantity',
+      type: 'number'
     }
   ];
-  constructor() { }
+  constructor(private service: BookService) { }
 
   ngOnInit(): void {
+    this.service.getCategories('?sort-by=name').subscribe((data: FormItemOption[]) => {
+      this.fields.filter(item => item.name === 'category_name')[0].options = data;
+    });
   }
 
   handleSubmit(value: Object) {
-    console.log('add book')
+    this.service.createBook(value).subscribe((data: BookItemData) => {
+      console.log('Created a new book successfully');
+      console.log(data.data);
+    });
   }
 }

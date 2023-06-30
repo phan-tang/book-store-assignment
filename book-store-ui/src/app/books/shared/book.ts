@@ -8,7 +8,6 @@ export interface BookItem {
     final_price: string;
     image: string;
     quantity: number;
-    average_rating_star: number;
 }
 
 export interface BookItemData {
@@ -17,9 +16,6 @@ export interface BookItemData {
 
 export interface BookListData {
     data: BookItem[],
-    meta: {
-        total: number;
-        [key: string]: any;
-    },
-    links: Object
+    total: number,
+    page?: number
 }

@@ -7,8 +7,7 @@
             </div>
         </div>
         <div class="books-list-paginator pb-4">
-            <app-paginator (changePage)="handleChangePage($event)"
-                [numberOfItems]="bookList.meta.total"></app-paginator>
+            <app-paginator (changePage)="handleChangePage($event)" [numberOfItems]="bookList.total"></app-paginator>
         </div>
     </div>
 </div>
