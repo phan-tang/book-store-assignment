@@ -31,11 +31,20 @@ $book-store-ui-theme: mat.define-light-theme((color: (primary: $book-store-ui-pr
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
+$primary: #B71C1C;
+
 html,
 body {
-  height: 100%;
-}
-
-body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+
+  .page-title,
+  .final-price {
+    color: $primary;
+    font-weight: bold;
+  }
+
+  del {
+    color: dimgray;
+  }
 }

@@ -7,7 +7,7 @@
             <h4 class="fw-bold m-0 text-truncate">{{bookItem.name}}</h4>
             <p class="book-description text-truncate">{{bookItem.summary}}</p>
             <div class="book-card-price d-flex">
-                <p class="final-price fw-bold fs-6">{{unit+bookItem.final_price}}</p>
+                <p class="final-price fs-6">{{unit+bookItem.final_price}}</p>
                 <p *ngIf="bookItem.final_price!==bookItem.price" class="px-2">
                     <del>{{unit+bookItem.price}}</del>
                 </p>

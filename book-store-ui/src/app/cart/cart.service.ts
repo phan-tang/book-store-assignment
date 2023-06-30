@@ -10,6 +10,6 @@ export class CartService {
     constructor(private http: HttpClient) { }
 
     getBooksInCart(): Observable<BookListData> {
-        return this.http.get<BookListData>(environment.apiURL + 'products?per-page=2');
+        return this.http.get<BookListData>(environment.apiURL + 'books?per-page=2');
     }
 }
