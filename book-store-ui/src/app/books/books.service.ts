@@ -19,7 +19,7 @@ export class BookService {
         return this.http.get<BookListData>(environment.apiURL + this.resource + params);
     }
 
-    getBookById(id: number): Observable<BookItemData> {
+    getBookById(id: string): Observable<BookItemData> {
         return this.http.get<BookItemData>(environment.apiURL + `${this.resource}/${id}`);
     }
 

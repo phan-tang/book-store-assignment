@@ -10,7 +10,7 @@ export class PaginatorComponent {
   @Output() changePage = new EventEmitter<PageEvent>();
   @Input() numberOfItems!: number;
   pageSizeOptions: number[] = [10, 15, 20, 50, 100];
-  pageIndex: number = 1;
+  pageIndex: number = 0;
   pageSize: number = 10;
   constructor() { }
 
