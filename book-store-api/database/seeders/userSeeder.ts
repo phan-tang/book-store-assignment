@@ -1,6 +1,7 @@
 import { User } from '../../models';
 import { IUser } from '../../interfaces/model';
 import UserFactory from '../factories/userFactory';
+import bcrypt from 'bcrypt';
 
 class UserSeeder {
     private _count: number;
@@ -10,12 +11,14 @@ class UserSeeder {
     }
 
     async seed() {
+        let salt = Math.random() * 10;
         let data: IUser[] = [
             {
                 "first_name": "Admin",
                 "last_name": "System",
                 "email": "AdminSystem@email.com",
-                "password": "$2b$10$wns8iOQnc7dyYrVgdQVCZuCcQu9wDWD01JrCnn39JOscF1oZxCr.O", //AdminSystem@123
+                "password": await bcrypt.hash("AdminSystem" + '@123', salt), //AdminSystem@123
+                "salt": salt,
                 "is_admin": true
             }
         ];
