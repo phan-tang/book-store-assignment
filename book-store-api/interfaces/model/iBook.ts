@@ -1,4 +1,4 @@
-export default interface IBook {
+interface IBook {
     name: string;
     author_name: string;
     category_name: string;
@@ -8,3 +8,11 @@ export default interface IBook {
     image: string;
     quantity: number;
 }
+
+interface IBookResource {
+    data: IBook[] | IBook | null;
+    total?: number;
+    page?: number;
+}
+
+export { IBook, IBookResource };

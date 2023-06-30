@@ -1,6 +1,16 @@
-import IBook from "./iBook";
-import IUser from "./iUser";
-import ICategory from "./iCategory";
-import { ITransformedQuery, IQuery } from "./iQuery";
+import { IBook, IBookResource } from "./iBook";
+import { IUser, IUserResource } from "./iUser";
+import { ICategory, ICategoryResource } from "./iCategory";
+import { ITransformedQuery, IQuery, IQueryCondition } from "./iQuery";
 
-export { IBook, ICategory, IUser, ITransformedQuery, IQuery };
+export {
+    IBook,
+    IBookResource,
+    ICategory,
+    ICategoryResource,
+    IUser,
+    IUserResource,
+    ITransformedQuery,
+    IQuery,
+    IQueryCondition
+};
