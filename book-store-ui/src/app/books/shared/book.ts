@@ -15,7 +15,7 @@ export interface BookItemData {
 }
 
 export interface BookListData {
-    data: BookItem[],
-    total: number,
-    page?: number
+    data: BookItem[];
+    total: number;
+    page?: number;
 }

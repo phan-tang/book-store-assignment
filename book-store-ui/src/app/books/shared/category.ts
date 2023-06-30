@@ -5,7 +5,7 @@ export interface CategoryItem {
 }
 
 export interface CategoryListData {
-    data: CategoryItem[],
-    total: number,
-    page?: number
+    data: CategoryItem[];
+    total: number;
+    page?: number;
 }

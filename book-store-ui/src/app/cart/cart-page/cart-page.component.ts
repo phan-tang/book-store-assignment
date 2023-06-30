@@ -3,7 +3,6 @@ import { CartService } from '../cart.service';
 import { BookListData } from 'src/app/books/shared/book';
 
 import { unit } from 'src/app/shared/constants/app.constants';
-import { totalmem } from 'os';
 
 @Component({
   selector: 'app-cart-page',
