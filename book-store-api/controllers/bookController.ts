@@ -31,7 +31,7 @@ class BookController implements IBookController {
             next();
         }
         else {
-            res.status(200).send({ data: result });
+            res.status(200).send(result);
         }
     }
 
