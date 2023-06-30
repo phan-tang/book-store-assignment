@@ -29,12 +29,12 @@ class QueryService extends BaseService {
     }
 
     private getPerPage(queryPerPage: string | undefined) {
-        return queryPerPage && Number.isInteger(queryPerPage) ?
+        return queryPerPage && Number.isInteger(parseInt(queryPerPage)) ?
             parseInt(queryPerPage) : this.modelConfig.getPerPage();
     }
 
     private getPage(queryPage: string | undefined) {
-        return queryPage && Number.isInteger(queryPage) ?
+        return queryPage && Number.isInteger(parseInt(queryPage)) ?
             parseInt(queryPage) : this.modelConfig.getPage();
     }
 }
