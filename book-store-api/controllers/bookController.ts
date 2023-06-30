@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import { Request, Response, NextFunction } from "express";
 import { inject, injectable } from "inversify";
 import { SERVICE_TYPES } from "../config/types";
-import { mongoose } from '../config/database';
 import { IBookService } from "../interfaces/service";
 import { IBookController } from "../interfaces/controller";
 
@@ -17,17 +16,17 @@ class BookController implements IBookController {
 
     async list(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.list(req.query);
-        res.send(result);
+        res.status(200).send(result);
     }
 
     async create(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.create(req.body);
-        res.send(result);
+        res.status(201).send(result);
     }
 
     async find(req: Request, res: Response, next: NextFunction) {
-        let result = await this.service.find(new mongoose.Types.ObjectId(req.params['bookId']));
-        if (!result) {
+        let result = await this.service.find(req.params['bookId']);
+        if (!result.data) {
             res.status(404).json({ error: 'This book does not exit' });
             next();
         }
@@ -37,24 +36,24 @@ class BookController implements IBookController {
     }
 
     async update(req: Request, res: Response, next: NextFunction) {
-        let result = await this.service.update(new mongoose.Types.ObjectId(req.params['bookId']), req.body);
-        if (!result) {
+        let result = await this.service.update(req.params['bookId'], req.body);
+        if (!result.data) {
             res.status(404).json({ error: 'This book does not exit' });
             next();
         }
         else {
-            res.status(200).send({ data: result });
+            res.status(200).send(result);
         }
     }
 
     async delete(req: Request, res: Response, next: NextFunction) {
-        let result = await this.service.delete(new mongoose.Types.ObjectId(req.params['bookId']));
-        if (!result) {
+        let result = await this.service.delete(req.params['bookId']);
+        if (!result.data) {
             res.status(404).json({ error: 'This book does not exit' });
             next();
         }
         else {
-            res.status(200).send({ data: result });
+            res.status(200).send(result);
         }
     }
 }

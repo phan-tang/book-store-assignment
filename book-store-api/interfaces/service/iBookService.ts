@@ -1,12 +1,11 @@
-import { mongoose } from '../../config/database';
-import { IBook } from "../model";
+import { IBook, IBookResource } from "../model";
 
 interface IBookService {
-    list(query: Object): Promise<IBook[]>;
-    find(id: mongoose.Types.ObjectId): Promise<IBook | null>;
-    create(data: IBook): Promise<IBook | null>;
-    update(id: mongoose.Types.ObjectId, data: Partial<IBook>): Promise<IBook | null>;
-    delete(id: mongoose.Types.ObjectId): Promise<IBook | null>;
+    list(query: Object): Promise<IBookResource>;
+    find(id: string | number): Promise<IBookResource>;
+    create(data: IBook): Promise<IBookResource>;
+    update(id: string | number, data: Partial<IBook>): Promise<IBookResource>;
+    delete(id: string | number): Promise<IBookResource>;
 }
 
 export default IBookService;

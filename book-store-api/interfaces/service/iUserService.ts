@@ -1,12 +1,11 @@
-import { mongoose } from '../../config/database';
-import { IUser } from '../model';
+import { IUser, IUserResource } from '../model';
 
 interface IUserService {
-    list(query: Object): Promise<IUser[]>;
-    find(id: mongoose.Types.ObjectId): Promise<IUser | null>;
-    create(data: IUser): Promise<IUser | null>;
-    update(id: mongoose.Types.ObjectId, data: Partial<IUser>): Promise<IUser | null>;
-    delete(id: mongoose.Types.ObjectId): Promise<IUser | null>;
+    list(query: Object): Promise<IUserResource>;
+    find(id: string | number): Promise<IUserResource>;
+    create(data: IUser): Promise<IUserResource>;
+    update(id: string | number, data: Partial<IUser>): Promise<IUserResource>;
+    delete(id: string | number): Promise<IUserResource>;
 }
 
 export default IUserService;

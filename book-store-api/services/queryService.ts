@@ -1,13 +1,15 @@
 import { injectable } from "inversify";
 import { ITransformedQuery, IQuery } from "../interfaces/model";
 import { BaseModelConfig } from "../config/models";
+import BaseService from "./baseService";
 
 @injectable()
-class QueryService {
+class QueryService extends BaseService {
 
     protected modelConfig: BaseModelConfig;
 
     constructor() {
+        super();
         this.modelConfig = new BaseModelConfig();
     }
 

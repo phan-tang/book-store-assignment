@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { ICategoryService } from '../interfaces/service';
-import { ICategory, ITransformedQuery, IQuery } from '../interfaces/model';
+import { ICategory, ITransformedQuery, IQuery, ICategoryResource } from '../interfaces/model';
 import { Category } from '../models';
 import { CategoryModelConfig } from '../config/models';
 
@@ -15,39 +15,45 @@ class CategoryService extends QueryService implements ICategoryService {
         this.modelConfig = new CategoryModelConfig();
     }
 
-    async list(query: IQuery): Promise<ICategory[]> {
+    async list(query: IQuery): Promise<ICategoryResource> {
         let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
-        return await Category.find({}).
+        let total = await Category.countDocuments();
+        let data = await Category.find({}).
             sort([[transformedQuery.sortBy, transformedQuery.sort]]).
             skip((transformedQuery.page - 1) * transformedQuery.perPage).
             limit(transformedQuery.perPage);
+        return {
+            data,
+            total,
+            page: transformedQuery.page
+        };
     }
 
-    async find(id: mongoose.Types.ObjectId): Promise<ICategory | null> {
-        return await Category.findById(id);
+    async find(id: string | number): Promise<ICategoryResource> {
+        return { data: mongoose.isObjectIdOrHexString(id) ? await Category.findById(id) : null };
     }
 
-    async create(data: ICategory): Promise<ICategory> {
+    async create(data: ICategory): Promise<ICategoryResource> {
         //Just admin can create new category
-        //Check unique name
-        return await Category.create(data);
+        let newCategory = await this.checkUniqueTrue(Category, 'name', data.name) ?
+            await Category.create(data) : null;
+        return { data: newCategory };
     }
 
-    async update(id: mongoose.Types.ObjectId, data: Partial<ICategory>): Promise<ICategory | null> {
+    async update(id: string | number, data: Partial<ICategory>): Promise<ICategoryResource> {
         //Just admin can update category
-        //Check unique name
-        let category = await Category.findById(id);
-        if (!category) {
-            return null;
+        let category = mongoose.isObjectIdOrHexString(id) ? await Category.findById(id) : null;
+        if (!category || !await this.checkUniqueTrue(Category, 'name', data.name)) {
+            return { data: null };
         }
         Object.assign(category, data);
-        return await category.save();
+        return { data: await category.save() };
     }
 
-    async delete(id: mongoose.Types.ObjectId): Promise<ICategory | null> {
+    async delete(id: string | number): Promise<ICategoryResource> {
         //Just admin can delete category
-        let category = await Category.findById(id);
-        return !category ? null : await category.deleteOne();
+        let category = mongoose.isObjectIdOrHexString(id) ? await Category.findById(id) : null;
+        return { data: !category ? null : await category.deleteOne() };
     }
 }
 

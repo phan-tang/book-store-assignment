@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { IUserService } from '../interfaces/service';
-import { ITransformedQuery, IQuery, IUser } from '../interfaces/model';
+import { ITransformedQuery, IQuery, IUser, IUserResource } from '../interfaces/model';
 import { User } from '../models';
 import { UserModelConfig } from '../config/models';
 
@@ -16,43 +16,53 @@ class UserService extends QueryService implements IUserService {
         this.modelConfig = new UserModelConfig();
     }
 
-    async list(query: IQuery): Promise<IUser[]> {
+    async list(query: IQuery): Promise<IUserResource> {
         //Just admin can get list of users
         let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
-        return await User.find({}).
+        let total = await User.countDocuments();
+        let data = await User.find({}).
             sort([[transformedQuery.sortBy, transformedQuery.sort]]).
             skip((transformedQuery.page - 1) * transformedQuery.perPage).
             limit(transformedQuery.perPage);
+        return {
+            data,
+            total,
+            page: transformedQuery.page
+        };
     }
 
-    async find(id: mongoose.Types.ObjectId): Promise<IUser | null> {
+    async find(id: string | number): Promise<IUserResource> {
         //Just admin can find user
-        return await User.findById(id);
+        return { data: mongoose.isObjectIdOrHexString(id) ? await User.findById(id) : null };
     }
 
-    async create(data: IUser): Promise<IUser> {
+    async create(data: IUser): Promise<IUserResource> {
         //Just admin can create new user
-        //Check unique email
-        data.password = await bcrypt.hash(data.password, 10);
-        return await User.create(data);
+        data.salt = Math.random() * 10;
+        data.password = await bcrypt.hash(data.password, data.salt);
+        let newUser = await this.checkUniqueTrue(User, 'email', data.email) ?
+            await User.create(data) : null;
+        return { data: newUser };
     }
 
-    async update(id: mongoose.Types.ObjectId, data: Partial<IUser>): Promise<IUser | null> {
-        //Chek cannot modify user email
+    async update(id: string | number, data: Partial<IUser>): Promise<IUserResource> {
+        //Check cannot modify user email
         //Just admin can update user
         //User can modify their information
-        let user = await User.findById(id);
+        let user = mongoose.isObjectIdOrHexString(id) ? await User.findById(id) : null;
         if (!user) {
-            return null;
+            return { data: null };
         }
         Object.assign(user, data);
-        return await user.save();
+        return { data: await user.save() };
     }
 
-    async delete(id: mongoose.Types.ObjectId): Promise<IUser | null> {
+    async delete(id: string | number): Promise<IUserResource> {
         //Just admin can delete user
-        let user = await User.findById(id);
-        return !user ? null : await user.deleteOne();
+        let user = mongoose.isObjectIdOrHexString(id) ? await User.findById(id) : null;
+        return {
+            data: !user ? null : await user.deleteOne()
+        };
     }
 }
 

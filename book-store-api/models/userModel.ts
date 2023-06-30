@@ -22,6 +22,10 @@ const UserSchema = new Schema<IUser>({
         required: true,
         minlength: 8
     },
+    salt: {
+        type: Number,
+        default: 10
+    },
     is_admin: {
         type: Boolean,
         default: 0

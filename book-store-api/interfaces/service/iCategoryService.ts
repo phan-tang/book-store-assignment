@@ -1,12 +1,11 @@
-import { mongoose } from '../../config/database';
-import { ICategory } from '../model';
+import { ICategory, ICategoryResource } from '../model';
 
 interface ICategoryService {
-    list(query: Object): Promise<ICategory[]>;
-    find(id: mongoose.Types.ObjectId): Promise<ICategory | null>;
-    create(data: ICategory): Promise<ICategory | null>;
-    update(id: mongoose.Types.ObjectId, data: Partial<ICategory>): Promise<ICategory | null>;
-    delete(id: mongoose.Types.ObjectId): Promise<ICategory | null>;
+    list(query: Object): Promise<ICategoryResource>;
+    find(id: string | number): Promise<ICategoryResource>;
+    create(data: ICategory): Promise<ICategoryResource>;
+    update(id: string | number, data: Partial<ICategory>): Promise<ICategoryResource>;
+    delete(id: string | number): Promise<ICategoryResource>;
 }
 
 export default ICategoryService;
