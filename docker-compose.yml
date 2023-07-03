@@ -8,8 +8,28 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "27017:27017"
+      - $DB_PORT:$DB_PORT
+    restart: unless-stopped
     volumes:
       - book_store_mongo_db:/data/db
+  app:
+    depends_on:
+      - mongodb
+    build: ./book-store-api
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_PORT:$NODE_PORT
+    environment:
+      - DB_HOST=mongodb
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DB_NAME
+      - DB_PORT=$DB_PORT
+  ui:
+    build: ./book-store-ui
+    restart: unless-stopped
+    ports:
+      - $UI_PORT:$UI_PORT
 volumes:
   book_store_mongo_db:
