@@ -1,11 +1,13 @@
 # STAGE 1: BUILD
-FROM node:16-alpine as node
+FROM node:18-alpine as node
 
 WORKDIR /app
 
-COPY . .
+COPY package*.json ./
 
 RUN npm install
+
+COPY . .
 
 RUN npm run build
 
