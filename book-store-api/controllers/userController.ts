@@ -2,18 +2,13 @@ import 'reflect-metadata';
 import { Request, Response, NextFunction } from "express";
 import { inject, injectable } from "inversify";
 import { SERVICE_TYPES } from "../config/types";
-import { mongoose } from '../config/database';
 import { IUserService } from '../interfaces/service';
 import { IUserController } from '../interfaces/controller';
 
 @injectable()
 class UserController implements IUserController {
 
-    private service: IUserService;
-
-    constructor(@inject(SERVICE_TYPES.IUserService) injectService: IUserService) {
-        this.service = injectService;
-    }
+    constructor(@inject(SERVICE_TYPES.IUserService) private service: IUserService) { }
 
     async list(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.list(req.query);

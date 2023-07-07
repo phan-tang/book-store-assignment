@@ -11,8 +11,4 @@ interface IQuery {
     [key: string]: string;
 }
 
-interface IQueryCondition {
-    [key: string]: any;
-}
-
-export { ITransformedQuery, IQuery, IQueryCondition }
+export { ITransformedQuery, IQuery }

@@ -8,11 +8,7 @@ import { IBookController } from "../interfaces/controller";
 @injectable()
 class BookController implements IBookController {
 
-    private service: IBookService;
-
-    constructor(@inject(SERVICE_TYPES.IBookService) injectService: IBookService) {
-        this.service = injectService;
-    }
+    constructor(@inject(SERVICE_TYPES.IBookService) private service: IBookService) { }
 
     async list(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.list(req.query);

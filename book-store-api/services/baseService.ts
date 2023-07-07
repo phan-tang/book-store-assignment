@@ -1,6 +1,5 @@
 import { injectable } from "inversify";
 import { mongoose } from "../config/database";
-import { IQueryCondition } from "../interfaces/model";
 
 @injectable()
 class BaseService {
@@ -8,9 +7,7 @@ class BaseService {
     constructor() { }
 
     async checkUniqueTrue(model: typeof mongoose.Model, queryField: string, value: any): Promise<boolean> {
-        let condition: IQueryCondition = {};
-        condition[queryField] = value;
-        return await model.find(condition).countDocuments() === 0;
+        return await model.find({ [queryField]: value }).countDocuments() === 0;
     }
 }
 

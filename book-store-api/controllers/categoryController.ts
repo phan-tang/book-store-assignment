@@ -8,11 +8,7 @@ import { ICategoryController } from "../interfaces/controller";
 @injectable()
 class CategoryController implements ICategoryController {
 
-    private service: ICategoryService;
-
-    constructor(@inject(SERVICE_TYPES.ICategoryService) injectService: ICategoryService) {
-        this.service = injectService;
-    }
+    constructor(@inject(SERVICE_TYPES.ICategoryService) private service: ICategoryService) { }
 
     async list(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.list(req.query);
