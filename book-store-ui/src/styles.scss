@@ -44,6 +44,16 @@ body {
     font-weight: bold;
   }
 
+  .navigate {
+    border-top: 1px solid lightgray;
+
+    a {
+      color: $primary;
+      padding: 10px;
+      text-decoration: none;
+    }
+  }
+
   del {
     color: dimgray;
   }
