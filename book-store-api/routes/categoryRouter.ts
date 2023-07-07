@@ -4,6 +4,7 @@ import { CONTROLLER_TYPES } from '../config/types';
 import { ICategoryController } from '../interfaces/controller';
 import { createCategoryRequest } from '../requests';
 import validate from '../middleware/requestValidator';
+import { passport } from '../middleware/passport';
 
 const categoryRouter = express.Router();
 
@@ -11,10 +12,10 @@ let controller = appContainer.get<ICategoryController>(CONTROLLER_TYPES.ICategor
 
 categoryRouter.route('/')
     .get(controller.list.bind(controller))
-    .post(validate(createCategoryRequest), controller.create.bind(controller));
+    .post(passport.authenticate('jwt', { session: false }), validate(createCategoryRequest), controller.create.bind(controller));
 categoryRouter.route('/:categoryId')
     .get(controller.find.bind(controller))
-    .put(controller.update.bind(controller))
-    .delete(controller.delete.bind(controller));
+    .put(passport.authenticate('jwt', { session: false }), controller.update.bind(controller))
+    .delete(passport.authenticate('jwt', { session: false }), controller.delete.bind(controller));
 
 export default categoryRouter;

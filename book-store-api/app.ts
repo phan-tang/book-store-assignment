@@ -1,12 +1,13 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import path from 'path';
 import cookieParser from 'cookie-parser';
-import logger from 'morgan';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
 import helmet from 'helmet';
-import swaggerUi from "swagger-ui-express";
+import logger from 'morgan';
+import path from 'path';
+import { passport } from './middleware/passport';
 import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from "swagger-ui-express";
 import routers from './routes';
 import Database from './config/database';
 
@@ -29,6 +30,8 @@ app.disable('x-powered-by');
 
 // Use routers
 app.use('/', routers);
+
+app.use(passport.initialize());
 
 // Apply Swagger
 const swaggerDefinition = {

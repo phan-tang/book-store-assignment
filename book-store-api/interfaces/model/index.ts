@@ -1,7 +1,9 @@
 import { IBook, IBookResource } from "./iBook";
 import { IUser, IUserResource } from "./iUser";
 import { ICategory, ICategoryResource } from "./iCategory";
-import { ITransformedQuery, IQuery, IQueryCondition } from "./iQuery";
+import { ITransformedQuery, IQuery } from "./iQuery";
+import { ILoginForm, ITokenResource, IGetTokenForm } from "./iAuth";
+import { IToken } from "./iToken";
 
 export {
     IBook,
@@ -12,5 +14,8 @@ export {
     IUserResource,
     ITransformedQuery,
     IQuery,
-    IQueryCondition
+    ILoginForm,
+    ITokenResource,
+    IGetTokenForm,
+    IToken
 };

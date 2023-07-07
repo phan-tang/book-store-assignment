@@ -5,6 +5,8 @@ import { IBookController } from '../interfaces/controller';
 import { createBookRequest } from '../requests';
 import validate from '../middleware/requestValidator';
 
+import { passport } from '../middleware/passport';
+
 const bookRouter = express.Router();
 
 let controller = appContainer.get<IBookController>(CONTROLLER_TYPES.IBookController);
@@ -164,7 +166,7 @@ bookRouter.get('/', controller.list.bind(controller));
 *                       description: The book's quantity.
 *                       example: 10
 */
-bookRouter.post('/', validate(createBookRequest), controller.create.bind(controller));
+bookRouter.post('/', passport.authenticate('jwt', { session: false }), validate(createBookRequest), controller.create.bind(controller));
 
 /**
 * @swagger
@@ -325,7 +327,7 @@ bookRouter.get('/:bookId', controller.find.bind(controller));
 *                       description: The book's quantity.
 *                       example: 10
 */
-bookRouter.put('/:bookId', controller.update.bind(controller));
+bookRouter.put('/:bookId', passport.authenticate('jwt', { session: false }), controller.update.bind(controller));
 
 /**
 * @swagger
@@ -388,6 +390,6 @@ bookRouter.put('/:bookId', controller.update.bind(controller));
 *                       description: The book's quantity.
 *                       example: 10
 */
-bookRouter.delete('/:bookId', controller.delete.bind(controller));
+bookRouter.delete('/:bookId', passport.authenticate('jwt', { session: false }), controller.delete.bind(controller));
 
 export default bookRouter;
