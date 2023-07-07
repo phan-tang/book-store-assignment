@@ -3,7 +3,7 @@ interface IUser {
     last_name: string;
     email: string;
     password: string;
-    salt?: number;
+    salt: number;
     is_admin?: boolean;
 }
 

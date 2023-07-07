@@ -11,13 +11,13 @@ class UserSeeder {
     }
 
     async seed() {
-        let salt = Math.random() * 10;
+        let salt = 10;
         let data: IUser[] = [
             {
                 "first_name": "Admin",
                 "last_name": "System",
                 "email": "AdminSystem@email.com",
-                "password": await bcrypt.hash("AdminSystem" + '@123', salt), //AdminSystem@123
+                "password": await bcrypt.hash("AdminSystem@123", salt), //AdminSystem@123
                 "salt": salt,
                 "is_admin": true
             }

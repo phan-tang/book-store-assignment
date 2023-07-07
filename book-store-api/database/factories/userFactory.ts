@@ -11,7 +11,7 @@ class UserFactory {
             first_name: faker.person.firstName(),
             last_name: faker.person.lastName(),
         };
-        let salt = Math.random() * 10;
+        let salt = 10;
         let password = await bcrypt.hash(userInfor.first_name + userInfor.last_name.replace(' ', '') + '@123', salt);
         let newUser: IUser = {
             first_name: userInfor.first_name,
