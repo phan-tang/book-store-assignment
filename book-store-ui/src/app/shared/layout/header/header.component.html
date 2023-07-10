@@ -10,5 +10,9 @@
         <span class="nav-item p-2 rounded d-flex align-items-center" *ngFor="let item of rightItems">
             <app-nav-item [navItem]="item"></app-nav-item>
         </span>
+        <span class="d-flex align-items-center">
+            <mat-icon>account_circle</mat-icon>
+            <p class="m-0">{{user}}</p>
+        </span>
     </div>
 </mat-toolbar>

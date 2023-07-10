@@ -3,15 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './shared/layout/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './shared/layout/page-not-found/page-not-found.component';
 
+import { AuthGuardService as AuthGuard } from './auth/auth.guard.service';
+
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/app/books',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canLoad: [AuthGuard]
   },
   {
     path: 'app',
     component: MainLayoutComponent,
+    canLoad: [AuthGuard],
     children: [
       {
         path: 'books',

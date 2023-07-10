@@ -9,6 +9,7 @@ import { appIconName, appName } from '../../constants/app.constants';
 })
 
 export class HeaderComponent {
+  user: string | null = null;
   appName: string = appName;
   iconName: string = appIconName;
   leftItems: NavItem[] = [
@@ -34,10 +35,14 @@ export class HeaderComponent {
       type: "nav-icon",
     },
     {
-      link: "/auth/login",
+      link: "/auth/logout",
       name: "account_circle",
-      title: "Login",
+      title: "Logout",
       type: "nav-link"
     },
   ];
+
+  constructor() {
+    this.user = localStorage.getItem('user');
+  }
 }
