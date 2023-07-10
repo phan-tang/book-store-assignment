@@ -5,6 +5,8 @@ import { SERVICE_TYPES } from "../config/types";
 import { IBookService } from "../interfaces/service";
 import { IBookController } from "../interfaces/controller";
 
+import produce from '../kafka/producer';
+
 @injectable()
 class BookController implements IBookController {
 
@@ -17,6 +19,7 @@ class BookController implements IBookController {
 
     async create(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.create(req.body);
+        result.data && produce(`Created book ${result.data.name} successfully`);
         res.status(201).send(result);
     }
 
@@ -38,6 +41,7 @@ class BookController implements IBookController {
             next();
         }
         else {
+            result.data && produce(`Updated book ${result.data.name} successfully`);
             res.status(200).send(result);
         }
     }
@@ -49,6 +53,7 @@ class BookController implements IBookController {
             next();
         }
         else {
+            result.data && produce(`Deleted book ${result.data.name} successfully`);
             res.status(200).send(result);
         }
     }

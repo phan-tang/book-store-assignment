@@ -1,0 +1,16 @@
+{
+    "name": "book",
+    "type": "record",
+    "namespace": "com.my.company",
+    "doc": "Kafka JS book schema",
+    "fields": [
+        {
+            "name": "id",
+            "type": "string"
+        },
+        {
+            "name": "value",
+            "type": "string"
+        }
+    ]
+}
