@@ -2,7 +2,7 @@ import express from 'express';
 import appContainer from '../inversify.config';
 import { CONTROLLER_TYPES } from '../config/types';
 import { IAuthController } from '../interfaces/controller';
-import { loginRequest, getTokenRequest, createUserRequest } from '../requests';
+import { loginRequest, createUserRequest } from '../requests';
 import validate from '../middleware/requestValidator';
 
 const authRouter = express.Router();
@@ -13,7 +13,9 @@ authRouter.route('/login')
     .post(validate(loginRequest), controller.login.bind(controller));
 authRouter.route('/register')
     .post(validate(createUserRequest), controller.register.bind(controller));
-authRouter.route('/token')
-    .post(validate(getTokenRequest), controller.getAccessToken.bind(controller));
+authRouter.route('/refresh')
+    .post(controller.getAccessToken.bind(controller));
+authRouter.route('/logout')
+    .delete(controller.logout.bind(controller));
 
 export default authRouter;

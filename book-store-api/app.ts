@@ -5,9 +5,10 @@ import express from 'express';
 import helmet from 'helmet';
 import logger from 'morgan';
 import path from 'path';
-import { passport } from './middleware/passport';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from "swagger-ui-express";
+
+import { passport } from './middleware/passport';
 import routers from './routes';
 import Database from './config/database';
 
@@ -15,12 +16,12 @@ const app = express();
 dotenv.config();
 
 //Middleware
+app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
 
 // Set security HTTP headers
 app.use(helmet());
@@ -31,6 +32,7 @@ app.disable('x-powered-by');
 // Use routers
 app.use('/', routers);
 
+// Use passport
 app.use(passport.initialize());
 
 // Apply Swagger

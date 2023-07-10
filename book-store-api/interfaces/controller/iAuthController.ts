@@ -4,6 +4,7 @@ interface IAuthController {
     login(req: Request, res: Response, next: NextFunction): Promise<void>;
     register(req: Request, res: Response, next: NextFunction): Promise<void>;
     getAccessToken(req: Request, res: Response, next: NextFunction): Promise<void>;
+    logout(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 
 export default IAuthController;

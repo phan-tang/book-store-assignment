@@ -7,6 +7,10 @@ const TokenSchema = new Schema<IToken>({
     refresh_token: {
         type: String,
         required: true,
+    },
+    expires_in: {
+        type: Date,
+        required: true,
     }
 });
 

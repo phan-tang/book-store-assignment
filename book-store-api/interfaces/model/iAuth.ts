@@ -13,11 +13,12 @@ interface ITokenResource {
     data: null | {
         access_token: string | null;
         refresh_token: string | null;
-    }
+    },
+    user?: string;
 }
-
-interface IGetTokenForm {
+interface IToken {
     refresh_token: string;
+    expires_in: Date;
 }
 
-export { ILoginForm, ITokenResource, IGetTokenForm };
+export { ILoginForm, ITokenResource, IToken };

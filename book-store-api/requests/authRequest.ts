@@ -13,13 +13,4 @@ const loginRequest = z.object({
     }),
 });
 
-const getTokenRequest = z.object({
-    body: z.object({
-        refresh_token: z.string({
-            required_error: "Refresh token is required",
-            invalid_type_error: "Refresh token must be a string",
-        })
-    }),
-});
-
-export { loginRequest, getTokenRequest };
+export { loginRequest };

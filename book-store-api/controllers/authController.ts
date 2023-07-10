@@ -17,7 +17,11 @@ class AuthController implements IAuthController {
             next();
         }
         else {
-            res.status(200).send(result);
+            res.cookie('refresh_token', result.data.refresh_token, {
+                httpOnly: true,
+                maxAge: 7 * 24 * 60 * 1000
+            });
+            res.status(200).json({ access_token: result.data.access_token, user: result.user });
         }
     }
 
@@ -33,14 +37,20 @@ class AuthController implements IAuthController {
     }
 
     async getAccessToken(req: Request, res: Response, next: NextFunction) {
-        let result = await this.service.getAccessToken(req.body);
+        let result = await this.service.getAccessToken(req.cookies);
         if (!result.data) {
             res.status(401).json({ error: "Invalid refresh token" });
             next();
         }
         else {
-            res.status(200).send(result);
+            res.status(200).json({ access_token: result.data.access_token });
         }
+    }
+
+    async logout(req: Request, res: Response, next: NextFunction) {
+        await this.service.logout(req.cookies);
+        res.cookie('refresh_token', '', { maxAge: 0 });
+        res.status(200).json({ message: 'Logout successfully' });
     }
 }
 export default AuthController;

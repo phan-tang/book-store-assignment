@@ -1,9 +1,10 @@
-import { IGetTokenForm, ILoginForm, ITokenResource, IUser, IUserResource } from "../model";
+import { ILoginForm, ITokenResource, IUser, IUserResource } from "../model";
 
 interface IAuthService {
     login(data: ILoginForm): Promise<ITokenResource>;
     register(data: IUser): Promise<IUserResource>;
-    getAccessToken(data: IGetTokenForm): Promise<ITokenResource>;
+    getAccessToken(data: any): Promise<ITokenResource>;
+    logout(data: any): Promise<void>;
 }
 
 export default IAuthService;
