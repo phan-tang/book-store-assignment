@@ -75,7 +75,7 @@ let controller = appContainer.get<IBookController>(CONTROLLER_TYPES.IBookControl
 *                   description: Current page
 *                   example: 1
 */
-bookRouter.get('/', controller.list.bind(controller));
+bookRouter.get('/', passport.authenticate('jwt', { session: false }), controller.list.bind(controller));
 
 /**
 * @swagger
@@ -229,7 +229,7 @@ bookRouter.post('/', passport.authenticate('jwt', { session: false }), validate(
 *                       description: The book's quantity.
 *                       example: 10
 */
-bookRouter.get('/:bookId', controller.find.bind(controller));
+bookRouter.get('/:bookId', passport.authenticate('jwt', { session: false }), controller.find.bind(controller));
 
 /**
 * @swagger
