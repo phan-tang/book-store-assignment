@@ -20,6 +20,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FormComponent } from './components/form/form.component';
 import { FormErrorMessageComponent } from './components/form-error-message/form-error-message.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
         PaginatorComponent,
         FormComponent,
         FormErrorMessageComponent,
-        MainLayoutComponent
+        MainLayoutComponent,
+        PageNotFoundComponent
     ],
     imports: [
         CommonModule,

@@ -31,6 +31,8 @@ $book-store-ui-theme: mat.define-light-theme((color: (primary: $book-store-ui-pr
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
+@import "ngx-toastr/toastr";
+
 $primary: #B71C1C;
 
 html,
