@@ -29,14 +29,7 @@ export class BookService {
 
     getCategories(params: string): Observable<FormItemOption[]> {
         return this.http.get<CategoryListData>(environment.apiURL + 'categories' + params).pipe(
-            map(data => {
-                return data.data.map(item => {
-                    return {
-                        value: item.name,
-                        title: item.name
-                    };
-                });
-            })
+            map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))
         );
     }
 }

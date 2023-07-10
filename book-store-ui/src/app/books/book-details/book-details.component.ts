@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { BookItem, BookItemData } from '../shared/book';
+import { BookItem } from '../shared/book';
 import { BookService } from '../books.service';
 
 import { unit } from 'src/app/shared/constants/app.constants';
+import { catchError, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-book-details',
@@ -15,12 +16,21 @@ export class BookDetailsComponent implements OnInit {
   bookItem: BookItem | null = null;
   unit: string = unit;
 
-  constructor(private service: BookService, private route: ActivatedRoute) { }
+  constructor(private service: BookService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = String(this.route.snapshot.params['id']);
-    this.service.getBookById(id).subscribe((data: BookItemData) => {
-      this.bookItem = data.data;
+    this.route.params.pipe(
+      switchMap(({ id }) => this.service.getBookById(id)),
+      catchError(error => {
+        throw error;
+      })
+    ).subscribe({
+      next: ({ data }) => {
+        this.bookItem = data
+      },
+      error: error => {
+        this.router.navigate(['*']);
+      }
     });
   }
 }
