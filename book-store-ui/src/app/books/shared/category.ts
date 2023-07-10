@@ -1,11 +1,13 @@
-export interface CategoryItem {
-    id: number;
+interface CategoryItem {
+    id: string;
     name: string;
     description: string;
 }
 
-export interface CategoryListData {
+interface CategoryListData {
     data: CategoryItem[];
     total: number;
     page?: number;
 }
+
+export { CategoryItem, CategoryListData }

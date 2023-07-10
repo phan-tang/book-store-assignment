@@ -1,5 +1,5 @@
-export interface BookItem {
-    id: number;
+interface BookItem {
+    id: string;
     name: string;
     author_name: string;
     category_name: string;
@@ -10,12 +10,14 @@ export interface BookItem {
     quantity: number;
 }
 
-export interface BookItemData {
+interface BookItemData {
     data: BookItem;
 }
 
-export interface BookListData {
+interface BookListData {
     data: BookItem[];
     total: number;
     page?: number;
 }
+
+export { BookItem, BookItemData, BookListData }
