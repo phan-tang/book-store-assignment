@@ -1,7 +1,7 @@
-import { IUser, IUserResource } from '../model';
+import { IUser, IUserCollection, IUserResource } from '../model';
 
 interface IUserService {
-    list(query: Object): Promise<IUserResource>;
+    list(query: Object): Promise<IUserCollection>;
     find(id: string | number): Promise<IUserResource>;
     create(data: IUser): Promise<IUserResource>;
     update(id: string | number, data: Partial<IUser>): Promise<IUserResource>;

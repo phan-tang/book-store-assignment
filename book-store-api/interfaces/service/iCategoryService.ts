@@ -1,7 +1,7 @@
-import { ICategory, ICategoryResource } from '../model';
+import { ICategory, ICategoryCollection, ICategoryResource } from '../model';
 
 interface ICategoryService {
-    list(query: Object): Promise<ICategoryResource>;
+    list(query: Object): Promise<ICategoryCollection>;
     find(id: string | number): Promise<ICategoryResource>;
     create(data: ICategory): Promise<ICategoryResource>;
     update(id: string | number, data: Partial<ICategory>): Promise<ICategoryResource>;

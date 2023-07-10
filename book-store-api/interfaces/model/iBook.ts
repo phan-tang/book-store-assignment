@@ -10,9 +10,13 @@ interface IBook {
 }
 
 interface IBookResource {
-    data: IBook[] | IBook | null;
+    data: IBook | null;
+}
+
+interface IBookCollection {
+    data: IBook[] | null;
     total?: number;
     page?: number;
 }
 
-export { IBook, IBookResource };
+export { IBook, IBookResource, IBookCollection };

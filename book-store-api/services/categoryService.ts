@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { ICategoryService } from '../interfaces/service';
-import { ICategory, ITransformedQuery, IQuery, ICategoryResource } from '../interfaces/model';
+import { ICategory, ITransformedQuery, IQuery, ICategoryResource, ICategoryCollection } from '../interfaces/model';
 import { Category } from '../models';
 import { CategoryModelConfig } from '../config/models';
 
@@ -15,7 +15,7 @@ class CategoryService extends QueryService implements ICategoryService {
         this.modelConfig = new CategoryModelConfig();
     }
 
-    async list(query: IQuery): Promise<ICategoryResource> {
+    async list(query: IQuery): Promise<ICategoryCollection> {
         try {
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
             let [total, data] = await Promise.all([

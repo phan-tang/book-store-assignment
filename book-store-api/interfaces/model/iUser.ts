@@ -8,9 +8,13 @@ interface IUser {
 }
 
 interface IUserResource {
-    data: IUser[] | IUser | null;
+    data: IUser | null;
+}
+
+interface IUserCollection {
+    data: IUser[] | null;
     total?: number;
     page?: number;
 }
 
-export { IUser, IUserResource };
+export { IUser, IUserResource, IUserCollection };

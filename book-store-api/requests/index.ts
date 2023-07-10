@@ -1,6 +1,6 @@
 import { createBookRequest } from "./bookRequest";
 import { createCategoryRequest } from "./categoryRequest";
 import { createUserRequest } from "./userRequest";
-import { loginRequest, getTokenRequest } from "./authRequest";
+import { loginRequest } from "./authRequest";
 
-export { createBookRequest, createUserRequest, createCategoryRequest, loginRequest, getTokenRequest };
+export { createBookRequest, createUserRequest, createCategoryRequest, loginRequest };

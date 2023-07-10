@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { IUserService } from '../interfaces/service';
-import { ITransformedQuery, IQuery, IUser, IUserResource } from '../interfaces/model';
+import { ITransformedQuery, IQuery, IUser, IUserResource, IUserCollection } from '../interfaces/model';
 import { User } from '../models';
 import { UserModelConfig } from '../config/models';
 
@@ -16,7 +16,7 @@ class UserService extends QueryService implements IUserService {
         this.modelConfig = new UserModelConfig();
     }
 
-    async list(query: IQuery): Promise<IUserResource> {
+    async list(query: IQuery): Promise<IUserCollection> {
         try {
             //Just admin can get list of users
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);

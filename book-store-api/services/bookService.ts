@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { mongoose } from '../config/database';
 import { IBookService } from '../interfaces/service';
-import { IBook, IBookResource, ITransformedQuery, IQuery } from '../interfaces/model';
+import { IBook, IBookResource, ITransformedQuery, IQuery, IBookCollection } from '../interfaces/model';
 import { Book } from '../models';
 import { BookModelConfig } from '../config/models';
 
@@ -15,7 +15,7 @@ class BookService extends QueryService implements IBookService {
         this.modelConfig = new BookModelConfig();
     }
 
-    async list(query: IQuery): Promise<IBookResource> {
+    async list(query: IQuery): Promise<IBookCollection> {
         try {
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
             let [total, data] = await Promise.all([
