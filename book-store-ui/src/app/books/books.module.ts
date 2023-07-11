@@ -13,7 +13,6 @@ import { BookListComponent } from './book-list/book-list.component';
 
 import { SharedModule } from '../shared/shared.module';
 import { BookDetailsComponent } from './book-details/book-details.component';
-import { BookService } from './books.service';
 import { AddBookPageComponent } from './add-book-page/add-book-page.component';
 
 @NgModule({
@@ -33,6 +32,6 @@ import { AddBookPageComponent } from './add-book-page/add-book-page.component';
     MatProgressSpinnerModule,
     SharedModule
   ],
-  providers: [BookService]
+  providers: []
 })
 export class BooksModule { }

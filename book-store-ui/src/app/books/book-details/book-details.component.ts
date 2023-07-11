@@ -33,4 +33,8 @@ export class BookDetailsComponent implements OnInit {
       }
     });
   }
+
+  handleAddBookToCart(bookItem: BookItem) {
+    this.service.addBookToCart(bookItem);
+  }
 }

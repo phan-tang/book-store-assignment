@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { CartPageComponent } from './cart-page/cart-page.component';
 
 import { SharedModule } from '../shared/shared.module';
-import { CartService } from './cart.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +24,6 @@ import { CartService } from './cart.service';
     MatProgressSpinnerModule,
     MatButtonModule
   ],
-  providers: [CartService]
+  providers: []
 })
 export class CartModule { }

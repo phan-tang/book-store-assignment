@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../cart.service';
-import { BookListData } from 'src/app/books/shared/book';
+import { BookService } from 'src/app/books/books.service';
+import { BookItem } from 'src/app/books/shared/book';
 
 import { unit } from 'src/app/shared/constants/app.constants';
 
@@ -11,26 +11,24 @@ import { unit } from 'src/app/shared/constants/app.constants';
 })
 export class CartPageComponent implements OnInit {
   displayedColumns: string[] = ['name', 'final_price', 'quantity'];
-  cartItems: BookListData | null = null;
+  cartItems: BookItem[] | null = null;
   cartTotal: string = '0';
   discountCode: string = '';
   unit: string = unit;
-  constructor(private service: CartService) { }
+  constructor(private service: BookService) { }
 
   ngOnInit(): void {
-    this.service.getBooksInCart().subscribe((data: BookListData) => {
-      this.cartItems = data;
-      this.cartTotal = this.getCartTotal(data);
-    });
+    this.cartItems = this.service.getCartItems();
+    this.cartTotal = this.getCartTotal(this.cartItems);
   }
 
   applyDiscountCode() {
     console.log(this.discountCode);
   }
 
-  getCartTotal(data: BookListData) {
+  getCartTotal(data: BookItem[]) {
     let total = 0;
-    data.data.forEach(item => {
+    data.forEach(item => {
       total += item.quantity * parseFloat(item.final_price);
     })
     return total.toFixed(2);

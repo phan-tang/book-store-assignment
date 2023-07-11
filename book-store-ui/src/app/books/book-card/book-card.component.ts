@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { BookItem } from '../shared/book';
 
 import { unit } from 'src/app/shared/constants/app.constants';
+import { BookService } from '../books.service';
 
 @Component({
   selector: 'app-book-card',
@@ -12,7 +13,9 @@ export class BookCardComponent {
   @Input() bookItem!: BookItem;
   unit: string = unit;
 
-  handleAddBookToCart() {
-    console.log('add book to cart');
+  constructor(private service: BookService) { }
+
+  handleAddBookToCart(bookItem: BookItem) {
+    this.service.addBookToCart(bookItem);
   }
 }

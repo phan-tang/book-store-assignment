@@ -16,7 +16,9 @@
                     </div>
                     <div class="d-flex align-items-center py-2">
                         <div>
-                            <button mat-raised-button class="fs-6" color="primary">Add to cart
+                            <button mat-raised-button class="fs-6" color="primary"
+                                (click)="handleAddBookToCart(bookItem)">Add
+                                to cart
                                 <mat-icon>add_shopping_cart</mat-icon></button>
                         </div>
                     </div>
