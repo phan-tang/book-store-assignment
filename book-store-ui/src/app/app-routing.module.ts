@@ -9,8 +9,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: '/app/books',
-    pathMatch: 'full',
-    canLoad: [AuthGuard]
+    pathMatch: 'full'
   },
   {
     path: 'app',
