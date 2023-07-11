@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'app',
     component: MainLayoutComponent,
-    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'books',
