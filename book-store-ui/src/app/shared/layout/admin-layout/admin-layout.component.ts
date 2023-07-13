@@ -2,18 +2,30 @@ import { Component } from '@angular/core';
 import { NavItem } from '../../components/nav-item/nav-item.component';
 
 @Component({
-  selector: 'app-main-layout',
-  templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.scss']
+  selector: 'app-admin-layout',
+  templateUrl: './admin-layout.component.html',
+  styleUrls: ['./admin-layout.component.scss']
 })
-export class MainLayoutComponent {
+export class AdminLayoutComponent {
   leftItems: NavItem[] = [
     {
-      link: "/app/books",
+      link: "/admin/books",
       name: "books",
       title: "Books",
       type: "nav-link"
-    }
+    },
+    {
+      link: "/admin/categories",
+      name: "categories",
+      title: "Categories",
+      type: "nav-link"
+    },
+    {
+      link: "/admin/users",
+      name: "users",
+      title: "Users",
+      type: "nav-link"
+    },
   ];
 
   rightItems: NavItem[] = [
@@ -31,4 +43,5 @@ export class MainLayoutComponent {
     },
   ];
   constructor() { }
+
 }

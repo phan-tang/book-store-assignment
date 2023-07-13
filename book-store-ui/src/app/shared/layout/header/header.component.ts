@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavItem } from '../../components/nav-item/nav-item.component';
 import { appIconName, appName } from '../../constants/app.constants';
 
@@ -12,35 +12,8 @@ export class HeaderComponent {
   user: string | null = null;
   appName: string = appName;
   iconName: string = appIconName;
-  leftItems: NavItem[] = [
-    {
-      link: "/app/books",
-      name: "books",
-      title: "Books",
-      type: "nav-link"
-    },
-    {
-      link: "/app/books/add",
-      name: "add-book",
-      title: "Add Book",
-      type: "nav-link"
-    },
-  ];
-
-  rightItems: NavItem[] = [
-    {
-      link: "/app/cart",
-      name: "shopping_cart",
-      title: "Cart",
-      type: "nav-icon",
-    },
-    {
-      link: "/auth/logout",
-      name: "account_circle",
-      title: "Logout",
-      type: "nav-link"
-    },
-  ];
+  @Input() leftItems!: NavItem[];
+  @Input() rightItems!: NavItem[];
 
   constructor() {
     this.user = localStorage.getItem('user');

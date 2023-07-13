@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './shared/layout/main-layout/main-layout.com
 import { PageNotFoundComponent } from './shared/layout/page-not-found/page-not-found.component';
 
 import { AuthGuardService as AuthGuard } from './auth/auth.guard.service';
+import { AdminLayoutComponent } from './shared/layout/admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,21 @@ const routes: Routes = [
       {
         path: 'cart',
         loadChildren: () => import('./cart/cart.module').then(m => m.CartModule)
+      },
+    ]
+  },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'books',
+        loadChildren: () => import('./admin/admin-books/admin-books.module').then(m => m.AdminBooksModule)
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('./admin/admin-users/admin-users.module').then(m => m.AdminUsersModule)
       },
     ]
   },

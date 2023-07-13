@@ -21,6 +21,7 @@ import { FormComponent } from './components/form/form.component';
 import { FormErrorMessageComponent } from './components/form-error-message/form-error-message.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.co
         FormComponent,
         FormErrorMessageComponent,
         MainLayoutComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        AdminLayoutComponent
     ],
     imports: [
         CommonModule,
@@ -52,7 +54,8 @@ import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.co
         FooterComponent,
         PaginatorComponent,
         FormComponent,
-        MainLayoutComponent
+        MainLayoutComponent,
+        AdminLayoutComponent
     ],
     providers: [],
     bootstrap: []
