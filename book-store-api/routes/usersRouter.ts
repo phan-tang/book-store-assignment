@@ -3,7 +3,7 @@ import appContainer from '../inversify.config';
 import { CONTROLLER_TYPES } from '../config/types';
 import { IUserController } from '../interfaces/controller';
 import { createUserRequest } from '../requests';
-import validate from '../middleware/requestValidator';
+import zodValidate from '../middleware/zodValidator';
 
 import { passport } from '../middleware/passport';
 
@@ -13,7 +13,7 @@ let controller = appContainer.get<IUserController>(CONTROLLER_TYPES.IUserControl
 
 userRouter.route('/')
     .get(passport.authenticate('jwt', { session: false }), controller.list.bind(controller))
-    .post(passport.authenticate('jwt', { session: false }), validate(createUserRequest), controller.create.bind(controller));
+    .post(passport.authenticate('jwt', { session: false }), zodValidate(createUserRequest), controller.create.bind(controller));
 userRouter.route('/:userId')
     .get(passport.authenticate('jwt', { session: false }), controller.find.bind(controller))
     .put(passport.authenticate('jwt', { session: false }), controller.update.bind(controller))

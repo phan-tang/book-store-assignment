@@ -2,10 +2,14 @@ import express from 'express';
 import appContainer from '../inversify.config';
 import { CONTROLLER_TYPES } from '../config/types';
 import { IBookController } from '../interfaces/controller';
+
 import { createBookRequest } from '../requests';
-import validate from '../middleware/requestValidator';
+import zodValidate from '../middleware/zodValidator';
 
 import { passport } from '../middleware/passport';
+
+import { upload } from '../middleware/bucket';
+import { numericValidators, expressValidate } from '../middleware/expressValidator';
 
 const bookRouter = express.Router();
 
@@ -166,7 +170,11 @@ bookRouter.get('/', passport.authenticate('jwt', { session: false }), controller
 *                       description: The book's quantity.
 *                       example: 10
 */
-bookRouter.post('/', passport.authenticate('jwt', { session: false }), validate(createBookRequest), controller.create.bind(controller));
+bookRouter.post('/', passport.authenticate('jwt', { session: false }),
+    upload.single('imageFile'),
+    zodValidate(createBookRequest),
+    numericValidators(['price', 'quantity']), expressValidate,
+    controller.create.bind(controller));
 
 /**
 * @swagger
@@ -327,7 +335,9 @@ bookRouter.get('/:bookId', passport.authenticate('jwt', { session: false }), con
 *                       description: The book's quantity.
 *                       example: 10
 */
-bookRouter.put('/:bookId', passport.authenticate('jwt', { session: false }), controller.update.bind(controller));
+bookRouter.put('/:bookId', upload.single('imageFile'),
+    numericValidators(['price', 'quantity']), expressValidate,
+    controller.update.bind(controller));
 
 /**
 * @swagger

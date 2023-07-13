@@ -3,16 +3,16 @@ import appContainer from '../inversify.config';
 import { CONTROLLER_TYPES } from '../config/types';
 import { IAuthController } from '../interfaces/controller';
 import { loginRequest, createUserRequest } from '../requests';
-import validate from '../middleware/requestValidator';
+import zodValidate from '../middleware/zodValidator';
 
 const authRouter = express.Router();
 
 let controller = appContainer.get<IAuthController>(CONTROLLER_TYPES.IAuthController);
 
 authRouter.route('/login')
-    .post(validate(loginRequest), controller.login.bind(controller));
+    .post(zodValidate(loginRequest), controller.login.bind(controller));
 authRouter.route('/register')
-    .post(validate(createUserRequest), controller.register.bind(controller));
+    .post(zodValidate(createUserRequest), controller.register.bind(controller));
 authRouter.route('/refresh')
     .post(controller.getAccessToken.bind(controller));
 authRouter.route('/logout')
