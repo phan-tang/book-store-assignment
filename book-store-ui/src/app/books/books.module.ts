@@ -13,14 +13,12 @@ import { BookListComponent } from './book-list/book-list.component';
 
 import { SharedModule } from '../shared/shared.module';
 import { BookDetailsComponent } from './book-details/book-details.component';
-import { AddBookPageComponent } from './add-book-page/add-book-page.component';
 
 @NgModule({
   declarations: [
     BookCardComponent,
     BookListComponent,
-    BookDetailsComponent,
-    AddBookPageComponent
+    BookDetailsComponent
   ],
   imports: [
     CommonModule,

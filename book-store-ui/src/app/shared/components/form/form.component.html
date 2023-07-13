@@ -39,6 +39,18 @@
                         [value]="option.value">{{option.title}}</mat-option>
                 </mat-select>
             </mat-form-field>
+            <!-- File upload field -->
+            <mat-form-field *ngSwitchCase="'file-upload'" class="w-100" appearance="fill">
+                <mat-label>{{fieldDisplay.title}}</mat-label>
+                <div class="d-flex align-items-center">
+                    <input matInput [formControlName]="fieldDisplay.name" readonly>
+                    <div class="ml-auto">
+                        <label for="file-upload" class="file-upload-button">Choose file</label>
+                        <input type="file" id="file-upload" [style.display]="'none'"
+                            (change)="handleUploadFile($event)">
+                    </div>
+                </div>
+            </mat-form-field>
             <!-- Error message -->
             <div *ngIf="formGroup.controls[fieldDisplay.name].status==='INVALID' && formGroup.touched===true">
                 <app-form-error-message [fieldTitle]="fieldDisplay.title"

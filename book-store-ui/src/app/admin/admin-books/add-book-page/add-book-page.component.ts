@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormItem, FormItemOption } from 'src/app/shared/components/form/form.component';
-import { BookService } from '../books.service';
-import { BookItemData } from '../shared/book';
+import { BookService } from '../../../books/books.service';
+import { BookItemData } from '../../../books/shared/book';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-book-page',
@@ -17,6 +18,8 @@ export class AddBookPageComponent implements OnInit {
     quantity: new FormControl('', [Validators.required, Validators.min(0)]),
     price: new FormControl('', [Validators.required, Validators.min(1)]),
     summary: new FormControl('', [Validators.required]),
+    image: new FormControl(''),
+    imageFile: new FormControl(null)
   });
   fields: FormItem[] = [
     {
@@ -50,9 +53,14 @@ export class AddBookPageComponent implements OnInit {
       name: 'quantity',
       title: 'Quantity',
       type: 'number'
+    },
+    {
+      name: 'image',
+      title: 'Image',
+      type: 'file-upload'
     }
   ];
-  constructor(private service: BookService) { }
+  constructor(private service: BookService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.service.getCategories('?sort-by=name').subscribe((data: FormItemOption[]) => {
@@ -60,10 +68,13 @@ export class AddBookPageComponent implements OnInit {
     });
   }
 
-  handleSubmit(value: Object) {
-    this.service.createBook(value).subscribe((data: BookItemData) => {
-      console.log('Created a new book successfully');
-      console.log(data.data);
+  handleSubmit(value: any) {
+    let formData: FormData = new FormData();
+    Object.keys(value).forEach((key) => {
+      formData.append(key, value[key]);
+    })
+    this.service.createBook(formData).subscribe((data: BookItemData) => {
+      this.toastrService.success('Created a new book successfully');
     });
   }
 }

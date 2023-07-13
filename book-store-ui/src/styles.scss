@@ -56,6 +56,15 @@ body {
     }
   }
 
+  .file-upload-button {
+    cursor: pointer;
+    background-color: $primary;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: max-content;
+  }
+
   del {
     color: dimgray;
   }

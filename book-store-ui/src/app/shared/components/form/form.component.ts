@@ -27,11 +27,23 @@ export class FormComponent {
   @Input() fieldsDisplay!: FormItem[];
   @Input() buttonText!: string;
   @Output() handleSubmit = new EventEmitter<Object>();
+  reader = new FileReader();
   hidePassword: boolean = true;
 
   constructor() { }
 
   handleSubmitForm() {
     this.handleSubmit.emit(this.formGroup.value);
+  }
+
+  handleUploadFile(event: any) {
+    if (event.target.files) {
+      let imageFile = event.target.files[0];
+      this.reader.readAsDataURL(imageFile);
+      this.formGroup.patchValue({
+        imageFile: imageFile,
+        image: imageFile.name
+      });
+    }
   }
 }

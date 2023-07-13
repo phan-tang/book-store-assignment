@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BookListComponent } from './book-list/book-list.component';
-import { BookDetailsComponent } from './book-details/book-details.component';
+import { AddBookPageComponent } from './add-book-page/add-book-page.component';
+import { AdminBookListComponent } from './admin-book-list/admin-book-list.component';
 
 export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        component: BookListComponent
+        component: AdminBookListComponent
     },
     {
-        path: ':id',
+        path: 'add',
         pathMatch: 'full',
-        component: BookDetailsComponent
+        component: AddBookPageComponent
     }
 ]
 
@@ -20,4 +20,4 @@ export const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class BooksRoutingModule { }
+export class AdminBooksRoutingModule { }
