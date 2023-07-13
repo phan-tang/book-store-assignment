@@ -1,6 +1,10 @@
-import { Kafka } from 'kafkajs';
-import { registry } from './registry';
+import { Kafka, KafkaMessage } from 'kafkajs';
 import { TOPIC } from './producer';
+
+import s3 from '../minIO/s3';
+import { ManagedUpload } from 'aws-sdk/clients/s3';
+
+const bucket = 'kafka-messages';
 
 const kafka = new Kafka({
     clientId: 'book-store-api',
@@ -9,13 +13,19 @@ const kafka = new Kafka({
 
 const consumer = kafka.consumer({ groupId: 'book-store-api-group' });
 
-consumer.connect();
-consumer.subscribe({ topic: TOPIC, fromBeginning: true });
+const uploadMessage = (message: KafkaMessage) => {
+    const params = {
+        Bucket: bucket,
+        Key: `${Date.now().toString()}.avro`,
+        Body: JSON.stringify(message)
+    }
 
-consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
-        message.value && console.log({
-            value: await registry.decode(message.value),
-        });
-    },
-});
+    s3.upload(params, function (error: Error, data: ManagedUpload.SendData) {
+        if (error) {
+            throw error;
+        }
+        console.log('Upload successfully')
+    })
+}
+
+export { consumer, uploadMessage };

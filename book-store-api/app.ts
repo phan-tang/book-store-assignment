@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -8,6 +9,8 @@ import path from 'path';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from "swagger-ui-express";
 
+import { consumer, uploadMessage } from './kafka/consumer';
+import { TOPIC } from './kafka/producer';
 import { passport } from './middleware/passport';
 import routers from './routes';
 import Database from './config/database';
@@ -16,6 +19,7 @@ const app = express();
 dotenv.config();
 
 //Middleware
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
 app.use(logger('dev'));
 app.use(express.json());
@@ -77,11 +81,21 @@ app.listen(port, async () => {
     console.info(`Server is successfully running on port ${port}`);
     // Connect to the database
     await database.connectToDatabase();
+    // Connect to Kafka
+    await consumer.connect();
+    console.log('Connected to Kafka');
+    consumer.subscribe({ topic: TOPIC, fromBeginning: true });
+    consumer.run({
+        eachMessage: async ({ topic, partition, message }) => {
+            message && uploadMessage(message);
+        },
+    });
 });
 
 // Gracefully disconnect from the database when the application is terminated
 process.on('SIGINT', async () => {
     await database.disconnectFromDatabase();
+    await consumer.disconnect();
     process.exit(0);
 });
 
