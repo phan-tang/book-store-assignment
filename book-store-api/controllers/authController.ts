@@ -19,7 +19,7 @@ class AuthController implements IAuthController {
         else {
             res.cookie('refresh_token', result.data.refresh_token, {
                 httpOnly: true,
-                maxAge: 7 * 24 * 60 * 1000
+                maxAge: 7 * 24 * 60 * 60 * 1000
             });
             res.status(200).json({ access_token: result.data.access_token, user: result.user });
         }
