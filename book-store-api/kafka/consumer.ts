@@ -1,5 +1,4 @@
 import { Kafka, KafkaMessage } from 'kafkajs';
-import { TOPIC } from './producer';
 
 import s3 from '../minIO/s3';
 import { ManagedUpload } from 'aws-sdk/clients/s3';

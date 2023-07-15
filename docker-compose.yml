@@ -43,6 +43,46 @@ services:
       SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8085"
     ports:
       - 8085:8085
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: password
+    volumes:
+      - ./storage:/data
+    command: server --console-address ":9001" /data
+  aws_glue:
+    image: amazon/aws-glue-libs:glue_libs_4.0.0_image_01
+    container_name: aws_glue
+    ports:
+      - 4040:4040
+      - 18080:18080
+      - 8998:8998
+      - 8888:8888
+    environment:
+      DISABLE_SSL: "true"
+    restart: always
+    volumes:
+      - ./.aws:/home/glue_user/.aws
+    command: /home/glue_user/jupyter/jupyter_start.sh
+  pgsql:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      PGPASSWORD: '${DB_PASSWORD:-secret}'
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:--secret}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    depends_on:
+      - aws_glue
   mongodb:
     container_name: book_store_db
     image: mongo:6.0
@@ -78,3 +118,6 @@ volumes:
   book_store_mongo_db:
   kafka:
   zookeeper:
+  minio:
+  postgres:
+  aws_glue:
