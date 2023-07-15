@@ -42,7 +42,7 @@ export class FormComponent {
       this.reader.readAsDataURL(imageFile);
       this.formGroup.patchValue({
         imageFile: imageFile,
-        image: imageFile.name
+        image: [Date.now().toString(), imageFile.name].join('_')
       });
     }
   }

@@ -49,4 +49,12 @@ export class BookService {
         let cart = localStorage.getItem('cart');
         return cart ? JSON.parse(cart) : [];
     }
+
+    transformToFormData(values: any): FormData {
+        let formData: FormData = new FormData();
+        Object.keys(values).forEach((key) => {
+            formData.append(key, values[key]);
+        })
+        return formData;
+    }
 }

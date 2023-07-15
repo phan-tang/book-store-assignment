@@ -68,11 +68,8 @@ export class AddBookPageComponent implements OnInit {
     });
   }
 
-  handleSubmit(value: any) {
-    let formData: FormData = new FormData();
-    Object.keys(value).forEach((key) => {
-      formData.append(key, value[key]);
-    })
+  handleSubmit(values: any) {
+    let formData = this.service.transformToFormData(values);
     this.service.createBook(formData).subscribe((data: BookItemData) => {
       this.toastrService.success('Created a new book successfully');
     });
