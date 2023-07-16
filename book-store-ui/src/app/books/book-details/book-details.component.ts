@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BookItem } from '../shared/book';
 import { BookService } from '../books.service';
 
-import { unit } from 'src/app/shared/constants/app.constants';
+import { environment } from 'src/environments/environment';
+import { unit, imageBucketName } from 'src/app/shared/constants/app.constants';
 import { catchError, switchMap } from 'rxjs';
 
 @Component({
@@ -15,6 +16,7 @@ import { catchError, switchMap } from 'rxjs';
 export class BookDetailsComponent implements OnInit {
   bookItem: BookItem | null = null;
   unit: string = unit;
+  imageLink: string = '';
 
   constructor(private service: BookService, private router: Router, private route: ActivatedRoute) { }
 
@@ -26,7 +28,8 @@ export class BookDetailsComponent implements OnInit {
       })
     ).subscribe({
       next: ({ data }) => {
-        this.bookItem = data
+        this.bookItem = data;
+        this.imageLink = [environment.s3URL, imageBucketName, this.bookItem.image].join('/');
       },
       error: error => {
         this.router.navigate(['*']);

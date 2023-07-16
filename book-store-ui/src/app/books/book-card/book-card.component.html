@@ -1,7 +1,7 @@
 <mat-card class="book-card m-0 p-0">
     <a class="text-decoration-none text-black" [routerLink]="['/app/books',bookItem.id]">
         <div class="image-wrapper rounded-top bg-secondary w-100">
-            <img class="w-100 h-100 rounded-top" [src]="bookItem.image">
+            <img class="w-100 h-100 rounded-top" [src]="imageLink">
         </div>
         <mat-card-content class="p-2 mb-1">
             <h4 class="fw-bold m-0 text-truncate">{{bookItem.name}}</h4>

@@ -6,7 +6,7 @@ import { AuthGuardService as AuthGuard } from '../auth/auth.guard.service';
 import { AuthInterceptor } from '../auth/interceptors/auth.interceptor';
 
 import { BookService } from '../books/books.service';
-
+import { S3Service } from './s3.service';
 
 @NgModule({
     imports: [
@@ -20,7 +20,8 @@ import { BookService } from '../books/books.service';
             useClass: AuthInterceptor,
             multi: true
         },
-        BookService
+        BookService,
+        S3Service
     ],
 })
 export class CoreModule { }

@@ -7,13 +7,14 @@ import { BookItem, BookItemData, BookListData } from './shared/book';
 import { environment } from 'src/environments/environment';
 import { CategoryListData } from './shared/category';
 import { FormItemOption } from '../shared/components/form/form.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class BookService {
 
     resource: string = 'books';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private toastrService: ToastrService) { }
 
     getBooks(params: string): Observable<BookListData> {
         return this.http.get<BookListData>(environment.apiURL + this.resource + params);
@@ -42,6 +43,7 @@ export class BookService {
         else {
             cart.push({ ...bookItem, quantity: 1 });
         }
+        this.toastrService.success('Added item to cart successfully');
         localStorage.setItem('cart', JSON.stringify(cart));
     }
 

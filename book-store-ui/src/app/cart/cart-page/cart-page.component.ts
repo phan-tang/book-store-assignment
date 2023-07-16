@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/books/books.service';
 import { BookItem } from 'src/app/books/shared/book';
 
-import { unit } from 'src/app/shared/constants/app.constants';
+import { environment } from 'src/environments/environment';
+import { unit, imageBucketName } from 'src/app/shared/constants/app.constants';
 
 @Component({
   selector: 'app-cart-page',
@@ -18,7 +19,9 @@ export class CartPageComponent implements OnInit {
   constructor(private service: BookService) { }
 
   ngOnInit(): void {
-    this.cartItems = this.service.getCartItems();
+    this.cartItems = this.service.getCartItems().map((item) => {
+      return ({ ...item, imageLink: [environment.s3URL, imageBucketName, item.image].join('/') });
+    });
     this.cartTotal = this.getCartTotal(this.cartItems);
   }
 
