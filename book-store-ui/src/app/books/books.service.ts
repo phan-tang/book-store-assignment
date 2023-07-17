@@ -28,6 +28,14 @@ export class BookService {
         return this.http.post<BookItemData>(environment.apiURL + `${this.resource}/`, value);
     }
 
+    updateBook(id: string, value: Object): Observable<BookItemData> {
+        return this.http.put<BookItemData>(environment.apiURL + `${this.resource}/${id}`, value);
+    }
+
+    deleteBook(id: string): Observable<BookItemData> {
+        return this.http.delete<BookItemData>(environment.apiURL + `${this.resource}/${id}`);
+    }
+
     getCategories(params: string): Observable<FormItemOption[]> {
         return this.http.get<CategoryListData>(environment.apiURL + 'categories' + params).pipe(
             map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))

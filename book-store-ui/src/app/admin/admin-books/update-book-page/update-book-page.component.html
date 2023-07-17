@@ -1,0 +1,7 @@
+<div class="update-book-page d-flex align-items-center justify-content-center bg-white p-5">
+    <div class="update-book-form w-50 rounded border p-4">
+        <h4 class=" update-book-form-header text-center page-title fs-4 py-3">Update Book</h4>
+        <app-form [formGroup]="updateBookForm" [fieldsDisplay]="fields" (handleSubmit)="handleSubmit($event)"
+            buttonText="Submit"></app-form>
+    </div>
+</div>

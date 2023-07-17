@@ -1,0 +1,14 @@
+<div class="d-flex align-items-center container pt-5 px-0">
+    <div class="fw-bold fs-5">Book Details</div>
+    <div class="admin-page-function-buttons d-flex align-items-center">
+        <div class="px-1">
+            <button mat-raised-button color="primary" [routerLink]="['/admin/books/update', bookId]">
+                Update Book</button>
+        </div>
+        <div class="px-1">
+            <button mat-raised-button color="secondary" (click)="handleDeleteBook()">
+                Delete Book</button>
+        </div>
+    </div>
+</div>
+<app-book-details></app-book-details>
