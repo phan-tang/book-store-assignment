@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CartPageComponent } from './cart-page/cart-page.component';
 
 import { SharedModule } from '../shared/shared.module';
+import { BooksModule } from '../books/books.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     CartRoutingModule,
     SharedModule,
+    BooksModule,
     MatTableModule,
     MatProgressSpinnerModule,
     MatButtonModule
