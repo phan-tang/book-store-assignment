@@ -21,6 +21,7 @@ export class UpdateBookPageComponent implements OnInit {
     category_name: new FormControl('', [Validators.required]),
     quantity: new FormControl('', [Validators.required, Validators.min(0)]),
     price: new FormControl('', [Validators.required, Validators.min(1)]),
+    final_price: new FormControl('', [Validators.required, Validators.min(1)]),
     summary: new FormControl('', [Validators.required]),
     image: new FormControl(''),
     imageFile: new FormControl(null)
@@ -50,6 +51,12 @@ export class UpdateBookPageComponent implements OnInit {
     {
       name: 'price',
       title: 'Price',
+      type: 'number',
+      prefix: '$'
+    },
+    {
+      name: 'final_price',
+      title: 'Final Price',
       type: 'number',
       prefix: '$'
     },
@@ -93,5 +100,4 @@ export class UpdateBookPageComponent implements OnInit {
       this.router.navigate(['/admin/books'])
     });
   }
-
 }
