@@ -46,9 +46,8 @@ class BookService extends QueryService implements IBookService {
     async create(data: IBook): Promise<IBookResource> {
         try {
             //Just admin can create new book
-            data.final_price = data.price;
             return {
-                data: await Book.create(data)
+                data: await Book.create({ ...data, final_price: data.price })
             };
         } catch (error) {
             throw error;

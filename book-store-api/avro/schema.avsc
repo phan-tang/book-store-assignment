@@ -1,15 +1,43 @@
 {
-    "name": "book",
+    "name": "bookReports",
     "type": "record",
     "namespace": "com.my.company",
     "doc": "Kafka JS book schema",
     "fields": [
         {
+            "name": "date",
+            "type": "string"
+        },
+        {
+            "name": "action",
+            "type": "string"
+        },
+        {
             "name": "id",
             "type": "string"
         },
         {
-            "name": "value",
+            "name": "author",
+            "type": "string"
+        },
+        {
+            "name": "category",
+            "type": "string"
+        },
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "price",
+            "type": "string"
+        },
+        {
+            "name": "final_price",
+            "type": "string"
+        },
+        {
+            "name": "quantity",
             "type": "string"
         }
     ]

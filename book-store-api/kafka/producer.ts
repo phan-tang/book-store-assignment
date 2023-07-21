@@ -10,20 +10,27 @@ const kafka = new Kafka({
 
 const producer = kafka.producer();
 
-const produce = async (message: string) => {
+const produce = async (message: any, action: string) => {
     try {
         const registryId = await registerSchema();
         if (registryId) {
             await producer.connect();
             const messageSent = {
-                id: new Date().toDateString(),
-                value: message
+                date: new Date().toDateString(),
+                action: action,
+                author: message.author_name,
+                category: message.category_name,
+                id: message.id,
+                name: message.name,
+                price: message.price.toString(),
+                final_price: message.price.toString(),
+                quantity: message.quantity.toString()
             }
             await producer.send({
                 topic: TOPIC,
                 messages: [
                     {
-                        key: messageSent.id,
+                        key: Date.now().toString(),
                         value: await registry.encode(registryId, messageSent)
                     }
                 ]

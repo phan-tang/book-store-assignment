@@ -19,7 +19,7 @@ class BookController implements IBookController {
 
     async create(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.create(req.body);
-        result.data && produce(`Created book ${result.data.name} successfully`);
+        result.data && produce(result.data, 'CREATE');
         res.status(201).send(result);
     }
 
@@ -41,7 +41,7 @@ class BookController implements IBookController {
             next();
         }
         else {
-            result.data && produce(`Updated book ${result.data.name} successfully`);
+            result.data && produce(result.data, 'UPDATE');
             res.status(200).send(result);
         }
     }
@@ -53,7 +53,7 @@ class BookController implements IBookController {
             next();
         }
         else {
-            result.data && produce(`Deleted book ${result.data.name} successfully`);
+            result.data && produce(result.data, 'DELETE');
             res.status(200).send(result);
         }
     }
