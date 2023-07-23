@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './shared/layout/main-layout/main-layout.com
 import { PageNotFoundComponent } from './shared/layout/page-not-found/page-not-found.component';
 
 import { AuthGuardService as AuthGuard } from './auth/auth.guard.service';
+import { RoleGuardService as RoleGuard } from './auth/role.guard.service';
 import { AdminLayoutComponent } from './shared/layout/admin-layout/admin-layout.component';
 
 const routes: Routes = [
@@ -30,8 +31,13 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [RoleGuard],
     children: [
+      {
+        path: '',
+        redirectTo: '/admin/books',
+        pathMatch: 'full'
+      },
       {
         path: 'books',
         loadChildren: () => import('./admin/admin-books/admin-books.module').then(m => m.AdminBooksModule)
@@ -39,6 +45,10 @@ const routes: Routes = [
       {
         path: 'users',
         loadChildren: () => import('./admin/admin-users/admin-users.module').then(m => m.AdminUsersModule)
+      },
+      {
+        path: 'categories',
+        loadChildren: () => import('./admin/admin-categories/admin-categories.module').then(m => m.AdminCategoriesModule)
       },
     ]
   },

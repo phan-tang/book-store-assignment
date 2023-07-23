@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NavItem } from '../../components/nav-item/nav-item.component';
+import { ChangeMode } from '../header/header.component';
 
 @Component({
   selector: 'app-admin-layout',
@@ -8,6 +9,11 @@ import { NavItem } from '../../components/nav-item/nav-item.component';
   encapsulation: ViewEncapsulation.None
 })
 export class AdminLayoutComponent {
+  changeMode: ChangeMode = {
+    link: '/',
+    icon: 'account_circle',
+    tooltip: 'User mode'
+  };
   leftItems: NavItem[] = [
     {
       link: "/admin/books",

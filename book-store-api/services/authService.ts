@@ -24,7 +24,7 @@ class AuthService extends BaseService implements IAuthService {
             let accessToken = jwt.sign(payload, process.env.JWT_SECRET_ACCESS_TOKEN as string, { expiresIn: '10m' });
             let refreshToken = jwt.sign(payload, process.env.JWT_SECRET_REFRESH_TOKEN as string, { expiresIn: '1w' });
             await Token.create({ refresh_token: refreshToken, expires_in: new Date().getDate() + 7 });
-            return { data: { access_token: accessToken, refresh_token: refreshToken }, user: user.first_name };
+            return { data: { access_token: accessToken, refresh_token: refreshToken }, user: user.first_name, role: user.is_admin };
         } catch (error) {
             throw error;
         }

@@ -14,6 +14,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.logout().subscribe(({ message }) => {
+      sessionStorage.clear();
       localStorage.clear();
       this.toastrService.success(message);
       this.router.navigate(['login'], { relativeTo: this.route.parent });

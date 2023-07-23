@@ -26,6 +26,14 @@ export class AuthService {
     }
 
     isAuthenticated() {
-        return localStorage.getItem('access_token');
+        let user = sessionStorage.getItem('user');
+        let token = user ? JSON.parse(user).access_token : null;
+        return token;
+    }
+
+    isAdmin() {
+        let user = sessionStorage.getItem('user');
+        let role = user ? JSON.parse(user).role : false;
+        return role;
     }
 }

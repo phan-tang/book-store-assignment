@@ -1,6 +1,7 @@
 interface LoginData {
     access_token: string;
     user: string;
+    role: boolean;
 }
 
 interface TokenData {

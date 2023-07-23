@@ -41,8 +41,12 @@ export class LoginPageComponent implements OnInit {
     this.service.login(value).subscribe({
       next: (data) => {
         AuthInterceptor.accessToken = data.access_token;
-        localStorage.setItem('user', data.user);
-        localStorage.setItem('access_token', data.access_token);
+        let user = {
+          name: data.user,
+          access_token: data.access_token,
+          role: data.role
+        }
+        sessionStorage.setItem('user', JSON.stringify(user));
         this.toastrService.success('Login successfuly')
         this.router.navigate(['/']);
       },

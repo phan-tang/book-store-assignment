@@ -4,6 +4,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { Observable, catchError, switchMap, throwError } from "rxjs";
 import { TokenData } from "../shared/auth";
 import { environment } from "src/environments/environment";
+import { AuthService } from "../auth.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,9 @@ import { environment } from "src/environments/environment";
 export class AuthInterceptor implements HttpInterceptor {
     static accessToken = '';
     refresh: boolean = false;
-    constructor(private http: HttpClient) { }
+    constructor(private service: AuthService, private http: HttpClient) {
+        AuthInterceptor.accessToken = this.service.isAuthenticated();
+    }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const request = req.clone({
@@ -25,6 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 this.refresh = true;
                 return this.getAccessToken().pipe(switchMap(({ access_token }) => {
                     AuthInterceptor.accessToken = access_token;
+                    this.storeAccessToken(access_token);
                     return next.handle(request.clone({
                         setHeaders: {
                             Authorization: `Bearer ${AuthInterceptor.accessToken}`,
@@ -35,6 +39,15 @@ export class AuthInterceptor implements HttpInterceptor {
             this.refresh = false;
             return throwError(() => error);
         }));
+    }
+
+    storeAccessToken(token: string) {
+        let data = sessionStorage.getItem('user');
+        let user = data ? JSON.parse(data) : null;
+        if (user) {
+            user.access_token = token;
+            sessionStorage.setItem('user', JSON.stringify(user));
+        }
     }
 
     getAccessToken() {

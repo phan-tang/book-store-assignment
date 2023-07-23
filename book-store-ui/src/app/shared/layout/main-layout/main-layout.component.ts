@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavItem } from '../../components/nav-item/nav-item.component';
+import { ChangeMode } from '../header/header.component';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit {
+  changeMode: ChangeMode | null = null;
   leftItems: NavItem[] = [
     {
       link: "/app/books",
@@ -30,5 +33,13 @@ export class MainLayoutComponent {
       type: "nav-link"
     },
   ];
-  constructor() { }
+  constructor(private service: AuthService) { }
+
+  ngOnInit(): void {
+    this.changeMode = this.service.isAdmin() ? {
+      link: '/admin',
+      icon: 'admin_panel_settings',
+      tooltip: 'Admin mode'
+    } : null;
+  }
 }

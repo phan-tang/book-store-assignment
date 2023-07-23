@@ -15,6 +15,7 @@ interface ITokenResource {
         refresh_token: string | null;
     },
     user?: string;
+    role?: boolean;
 }
 interface IToken {
     refresh_token: string;
