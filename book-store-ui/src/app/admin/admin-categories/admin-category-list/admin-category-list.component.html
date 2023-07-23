@@ -1,0 +1,17 @@
+<div class="admin-category-list-page d-flex justify-content-center min-vh-100">
+    <div class="w-100">
+        <div class="d-flex align-items-center p-3">
+            <div class="fw-bold fs-5 p-2">Category List</div>
+            <div class="admin-page-function-buttons px-2">
+                <button mat-raised-button color="primary" routerLink="/admin/categories/add">
+                    Add Category</button>
+            </div>
+        </div>
+        <mat-progress-spinner *ngIf="!categoryList"></mat-progress-spinner>
+        <div class="p-3" *ngIf="categoryList">
+            <app-data-table [data]="categoryList.data" [displayedColumns]="displayedColumns"
+                [displayedColumnTitles]="displayedColumnTitles"></app-data-table>
+            <app-paginator (changePage)="handleChangePage($event)" [numberOfItems]="categoryList.total"></app-paginator>
+        </div>
+    </div>
+</div>
