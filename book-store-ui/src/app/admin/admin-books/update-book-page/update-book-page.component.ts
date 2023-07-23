@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { ToastrService } from 'ngx-toastr';
 import { BookService } from 'src/app/books/books.service';
+import { CategoryService } from '../../admin-categories/categories.service';
+
 import { FormItem, FormItemOption } from 'src/app/shared/components/form/form.component';
 import { BookItemData } from 'src/app/books/shared/book';
 
@@ -71,11 +74,11 @@ export class UpdateBookPageComponent implements OnInit {
       type: 'file-upload'
     }
   ];
-  constructor(private service: BookService, private toastrService: ToastrService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private bookService: BookService, private categoryService: CategoryService, private toastrService: ToastrService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.pipe(
-      switchMap(({ id }) => this.service.getBookById(id)),
+      switchMap(({ id }) => this.bookService.getBookById(id)),
       catchError(error => {
         throw error;
       })
@@ -88,14 +91,14 @@ export class UpdateBookPageComponent implements OnInit {
         this.router.navigate(['*']);
       }
     });
-    this.service.getCategories('?sort-by=name').subscribe((data: FormItemOption[]) => {
+    this.categoryService.getCategoriesUsedForForm('?sort-by=name').subscribe((data: FormItemOption[]) => {
       this.fields.filter(item => item.name === 'category_name')[0].options = data;
     });
   }
 
   handleSubmit(values: any) {
-    let formData = this.service.transformToFormData(values);
-    this.service.updateBook(this.bookId, formData).subscribe((data: BookItemData) => {
+    let formData = this.bookService.transformToFormData(values);
+    this.bookService.updateBook(this.bookId, formData).subscribe((data: BookItemData) => {
       this.toastrService.success('Updated a new book successfully');
       this.router.navigate(['/admin/books'])
     });

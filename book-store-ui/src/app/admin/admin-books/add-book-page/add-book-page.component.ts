@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormItem, FormItemOption } from 'src/app/shared/components/form/form.component';
-import { BookService } from '../../../books/books.service';
 import { BookItemData } from '../../../books/shared/book';
+
 import { ToastrService } from 'ngx-toastr';
+import { BookService } from '../../../books/books.service';
+import { CategoryService } from '../../admin-categories/categories.service';
 
 @Component({
   selector: 'app-add-book-page',
@@ -60,17 +62,17 @@ export class AddBookPageComponent implements OnInit {
       type: 'file-upload'
     }
   ];
-  constructor(private service: BookService, private toastrService: ToastrService) { }
+  constructor(private bookService: BookService, private categoryService: CategoryService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
-    this.service.getCategories('?sort-by=name').subscribe((data: FormItemOption[]) => {
+    this.categoryService.getCategoriesUsedForForm('?sort-by=name').subscribe((data: FormItemOption[]) => {
       this.fields.filter(item => item.name === 'category_name')[0].options = data;
     });
   }
 
   handleSubmit(values: any) {
-    let formData = this.service.transformToFormData(values);
-    this.service.createBook(formData).subscribe((data: BookItemData) => {
+    let formData = this.bookService.transformToFormData(values);
+    this.bookService.createBook(formData).subscribe((data: BookItemData) => {
       this.toastrService.success('Created a new book successfully');
     });
   }

@@ -5,6 +5,7 @@ import { AdminBooksRoutingModule } from './admin-books-routing.module';
 import { BooksModule } from 'src/app/books/books.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AdminBookDetailsComponent } from './admin-book-details/admin-book-details.component';
 import { AdminBookListComponent } from './admin-book-list/admin-book-list.component';
@@ -23,7 +24,8 @@ import { UpdateBookPageComponent } from './update-book-page/update-book-page.com
     AdminBooksRoutingModule,
     SharedModule,
     BooksModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AdminBooksModule { }

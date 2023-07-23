@@ -5,8 +5,6 @@ import { Observable, map } from 'rxjs';
 import { BookItem, BookItemData, BookListData } from './shared/book';
 
 import { environment } from 'src/environments/environment';
-import { CategoryListData } from './shared/category';
-import { FormItemOption } from '../shared/components/form/form.component';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
@@ -34,12 +32,6 @@ export class BookService {
 
     deleteBook(id: string): Observable<BookItemData> {
         return this.http.delete<BookItemData>(environment.apiURL + `${this.resource}/${id}`);
-    }
-
-    getCategories(params: string): Observable<FormItemOption[]> {
-        return this.http.get<CategoryListData>(environment.apiURL + 'categories' + params).pipe(
-            map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))
-        );
     }
 
     addBookToCart(bookItem: BookItem) {
