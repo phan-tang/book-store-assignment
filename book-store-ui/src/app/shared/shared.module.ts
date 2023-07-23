@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -22,6 +23,7 @@ import { FormErrorMessageComponent } from './components/form-error-message/form-
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { DataTableComponent } from './components/data-table/data-table.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +35,8 @@ import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.compone
         FormErrorMessageComponent,
         MainLayoutComponent,
         PageNotFoundComponent,
-        AdminLayoutComponent
+        AdminLayoutComponent,
+        DataTableComponent
     ],
     imports: [
         CommonModule,
@@ -47,13 +50,15 @@ import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.compone
         MatPaginatorModule,
         MatFormFieldModule,
         MatSelectModule,
-        MatInputModule
+        MatInputModule,
+        MatTableModule
     ],
     exports: [
         HeaderComponent,
         FooterComponent,
         PaginatorComponent,
         FormComponent,
+        DataTableComponent,
         MainLayoutComponent,
         AdminLayoutComponent
     ],

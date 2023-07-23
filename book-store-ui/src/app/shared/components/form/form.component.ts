@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ErrorMessages } from '../form-error-message/form-error-message.component';
 
 export interface FormItemOption {
-  value: string;
+  value: string | boolean;
   title: string;
 }
 
