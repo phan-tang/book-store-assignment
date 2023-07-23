@@ -1,0 +1,17 @@
+<div class="admin-user-list-page d-flex justify-content-center min-vh-100">
+    <div class="w-100">
+        <div class="d-flex align-items-center p-3">
+            <div class="fw-bold fs-5 p-2">User List</div>
+            <div class="admin-page-function-buttons px-2">
+                <button mat-raised-button color="primary" routerLink="/admin/users/add">
+                    Add User</button>
+            </div>
+        </div>
+        <mat-progress-spinner *ngIf="!userList"></mat-progress-spinner>
+        <div class="p-3" *ngIf="userList">
+            <app-data-table [data]="userList.data" [displayedColumns]="displayedColumns"
+                [displayedColumnTitles]="displayedColumnTitles"></app-data-table>
+            <app-paginator (changePage)="handleChangePage($event)" [numberOfItems]="userList.total"></app-paginator>
+        </div>
+    </div>
+</div>
