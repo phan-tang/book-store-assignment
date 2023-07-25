@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { UserListData } from '../shared/user';
 import { UserService } from '../users.service';
+import { ToastrService } from 'ngx-toastr';
+import { switchMap, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-admin-user-list',
@@ -21,7 +23,7 @@ export class AdminUserListComponent implements OnInit {
       is_admin: 'Admin'
     };
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.service.getUsers('').subscribe((data: UserListData) => {
@@ -32,6 +34,23 @@ export class AdminUserListComponent implements OnInit {
   handleChangePage(event: PageEvent) {
     this.service.getUsers(`?per-page=${event.pageSize}&page=${event.pageIndex + 1}`).subscribe((data: UserListData) => {
       this.userList = data;
+    });
+  }
+
+  handleDelete(id: string) {
+    this.service.deleteUser(id).pipe(
+      switchMap(() => this.service.getUsers('')),
+      catchError(error => {
+        throw error;
+      })
+    ).subscribe({
+      next: (data: UserListData) => {
+        this.userList = data;
+        this.toastrService.success('Deleted this user successfully');
+      },
+      error: error => {
+        this.toastrService.error('Deleted this user failed');
+      }
     });
   }
 }

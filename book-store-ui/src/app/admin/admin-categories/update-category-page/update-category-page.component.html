@@ -1,0 +1,7 @@
+<div class="update-category-page d-flex align-items-center justify-content-center bg-white p-5">
+    <div class="update-category-form w-50 rounded border p-4">
+        <h4 class=" update-category-form-header text-center page-title fs-4 py-3">Update Category</h4>
+        <app-form [formGroup]="updateCategoryForm" [fieldsDisplay]="fields" (handleSubmit)="handleSubmit($event)"
+            buttonText="Submit"></app-form>
+    </div>
+</div>

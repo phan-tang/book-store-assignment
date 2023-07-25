@@ -9,8 +9,8 @@
         </div>
         <mat-progress-spinner *ngIf="!userList"></mat-progress-spinner>
         <div class="p-3" *ngIf="userList">
-            <app-data-table [data]="userList.data" [displayedColumns]="displayedColumns"
-                [displayedColumnTitles]="displayedColumnTitles"></app-data-table>
+            <app-data-table [data]="userList.data" [columns]="displayedColumns"
+                [displayedColumnTitles]="displayedColumnTitles" (handleDelete)="handleDelete($event)"></app-data-table>
             <app-paginator (changePage)="handleChangePage($event)" [numberOfItems]="userList.total"></app-paginator>
         </div>
     </div>

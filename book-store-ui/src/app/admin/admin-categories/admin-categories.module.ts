@@ -8,11 +8,13 @@ import { AddCategoryPageComponent } from './add-category-page/add-category-page.
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UpdateCategoryPageComponent } from './update-category-page/update-category-page.component';
 
 @NgModule({
   declarations: [
     AdminCategoryListComponent,
-    AddCategoryPageComponent
+    AddCategoryPageComponent,
+    UpdateCategoryPageComponent
   ],
   imports: [
     CommonModule,

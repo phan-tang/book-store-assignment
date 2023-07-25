@@ -3,6 +3,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { CategoryListData } from '../shared/category';
 import { CategoryService } from '../categories.service';
 
+import { switchMap, catchError } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-admin-category-list',
   templateUrl: './admin-category-list.component.html',
@@ -19,7 +22,7 @@ export class AdminCategoryListComponent implements OnInit {
       description: 'Description'
     };
 
-  constructor(private service: CategoryService) { }
+  constructor(private service: CategoryService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.service.getCategories('').subscribe((data: CategoryListData) => {
@@ -30,6 +33,23 @@ export class AdminCategoryListComponent implements OnInit {
   handleChangePage(event: PageEvent) {
     this.service.getCategories(`?per-page=${event.pageSize}&page=${event.pageIndex + 1}`).subscribe((data: CategoryListData) => {
       this.categoryList = data;
+    });
+  }
+
+  handleDelete(id: string) {
+    this.service.deleteCategory(id).pipe(
+      switchMap(() => this.service.getCategories('')),
+      catchError(error => {
+        throw error;
+      })
+    ).subscribe({
+      next: (data: CategoryListData) => {
+        this.categoryList = data;
+        this.toastrService.success('Deleted this category successfully');
+      },
+      error: error => {
+        this.toastrService.error('Deleted this category failed');
+      }
     });
   }
 }

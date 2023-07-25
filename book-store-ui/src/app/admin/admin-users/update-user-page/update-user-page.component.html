@@ -1,0 +1,7 @@
+<div class="update-user-page d-flex align-items-center justify-content-center bg-white p-5">
+    <div class="update-user-form w-50 rounded border p-4">
+        <h4 class=" update-user-form-header text-center page-title fs-4 py-3">Update User</h4>
+        <app-form [formGroup]="updateUserForm" [fieldsDisplay]="fields" (handleSubmit)="handleSubmit($event)"
+            buttonText="Submit"></app-form>
+    </div>
+</div>
