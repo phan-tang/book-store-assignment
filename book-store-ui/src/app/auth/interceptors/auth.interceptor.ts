@@ -12,11 +12,10 @@ import { AuthService } from "../auth.service";
 export class AuthInterceptor implements HttpInterceptor {
     static accessToken = '';
     refresh: boolean = false;
-    constructor(private service: AuthService, private http: HttpClient) {
-        AuthInterceptor.accessToken = this.service.isAuthenticated();
-    }
+    constructor(private service: AuthService, private http: HttpClient) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        AuthInterceptor.accessToken = this.service.isAuthenticated();
         const request = req.clone({
             setHeaders: {
                 Authorization: `Bearer ${AuthInterceptor.accessToken}`,
