@@ -5,9 +5,6 @@ services:
     depends_on:
       - zookeeper
     ports:
-      # Exposes 29092 for external connections to the broker
-      # Use kafka1:9092 for connections internal on the docker network
-      # See https://rmoff.net/2018/08/02/kafka-listeners-explained/ for details
       - "29092:29092"
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
@@ -20,7 +17,6 @@ services:
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_SCHEMA_REGISTRY_URL: "schemaregistry:8085"
-      #KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
       KAFKA_JMX_PORT: 9991
   zookeeper:
     image: confluentinc/cp-zookeeper:5.4.2
@@ -56,7 +52,7 @@ services:
       - ./storage:/data
     command: server --console-address ":9001" /data
   aws_glue:
-    image: amazon/aws-glue-libs:glue_libs_4.0.0_image_01
+    build: .
     container_name: aws_glue
     ports:
       - 4040:4040
@@ -64,10 +60,11 @@ services:
       - 8998:8998
       - 8888:8888
     environment:
+      AWS_PROFILE: user1
       DISABLE_SSL: "true"
     restart: always
     volumes:
-      - ./.aws:/home/glue_user/.aws
+      - ~/.aws:/home/glue_user/.aws
     command: /home/glue_user/jupyter/jupyter_start.sh
   pgsql:
     image: postgres:15
