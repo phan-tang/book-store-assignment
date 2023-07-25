@@ -3,6 +3,7 @@ import { IUser, IUserResource, IUserCollection } from "./iUser";
 import { ICategory, ICategoryResource, ICategoryCollection } from "./iCategory";
 import { ITransformedQuery, IQuery } from "./iQuery";
 import { ILoginForm, ITokenResource, IToken } from "./iAuth";
+import { IReportResource, IReportCollection } from "./iReport";
 
 export {
     IBook,
@@ -18,5 +19,7 @@ export {
     IQuery,
     ILoginForm,
     ITokenResource,
-    IToken
+    IToken,
+    IReportResource,
+    IReportCollection
 };

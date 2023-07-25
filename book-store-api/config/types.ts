@@ -3,6 +3,7 @@ const CONTROLLER_TYPES = {
     IUserController: Symbol.for("IUserController"),
     ICategoryController: Symbol.for("ICategoryController"),
     IAuthController: Symbol.for("IAuthController"),
+    IReportController: Symbol.for("IReportController"),
 };
 
 const SERVICE_TYPES = {
@@ -10,6 +11,7 @@ const SERVICE_TYPES = {
     IUserService: Symbol.for("IUserService"),
     ICategoryService: Symbol.for("ICategoryService"),
     IAuthService: Symbol.for("IAuthService"),
+    IReportService: Symbol.for("IReportService"),
 };
 
 export { SERVICE_TYPES, CONTROLLER_TYPES };

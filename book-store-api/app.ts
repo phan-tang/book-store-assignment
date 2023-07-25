@@ -14,6 +14,7 @@ import { TOPIC } from './kafka/producer';
 import { passport } from './middleware/passport';
 import routers from './routes';
 import Database from './config/database';
+import { sequelize } from './config/reportDatabase';
 
 const app = express();
 dotenv.config();
@@ -81,6 +82,11 @@ app.listen(port, async () => {
     console.info(`Server is successfully running on port ${port}`);
     // Connect to the database
     await database.connectToDatabase();
+    await sequelize.sync().then(() => {
+        console.log('Connected to PostgreSQL');
+    }).catch((error) => {
+        console.log('Connect to PostgreSQL failed')
+    });
     // Connect to Kafka
     await consumer.connect();
     console.log('Connected to Kafka');

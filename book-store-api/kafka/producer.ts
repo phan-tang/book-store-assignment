@@ -23,7 +23,7 @@ const produce = async (message: any, action: string) => {
                 id: message.id,
                 name: message.name,
                 price: message.price.toString(),
-                final_price: message.price.toString(),
+                final_price: message.final_price.toString(),
                 quantity: message.quantity.toString()
             }
             await producer.send({
