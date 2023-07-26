@@ -22,6 +22,7 @@ export class AdminUserListComponent implements OnInit {
       email: 'Email',
       is_admin: 'Admin'
     };
+  actions: string[] = ['update', 'delete']
 
   constructor(private service: UserService, private toastrService: ToastrService) { }
 

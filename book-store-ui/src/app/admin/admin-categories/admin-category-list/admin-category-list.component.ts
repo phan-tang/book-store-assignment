@@ -21,6 +21,8 @@ export class AdminCategoryListComponent implements OnInit {
       name: 'Name',
       description: 'Description'
     };
+  actions: string[] = ['update', 'delete']
+
 
   constructor(private service: CategoryService, private toastrService: ToastrService) { }
 

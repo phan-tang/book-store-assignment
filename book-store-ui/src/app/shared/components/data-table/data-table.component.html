@@ -4,14 +4,18 @@
             <th mat-header-cell *matHeaderCellDef class="fw-bold fs-6"> {{displayedColumnTitles[column]}} </th>
             <td mat-cell *matCellDef="let element" class="px-1"> {{element[column]}} </td>
         </ng-container>
-        <ng-container matColumnDef="action">
+        <ng-container matColumnDef="actions" *ngIf="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <div class="d-flex">
-                    <button mat-icon-button matTooltip="Edit"
-                        [routerLink]="[currentURL+'/update/', element.id]"><mat-icon>edit</mat-icon></button>
-                    <button mat-icon-button matTooltip="Delete"
-                        (click)="handleDeleteEvent(element.id)"><mat-icon>delete</mat-icon></button>
+                    <span *ngFor="let action of actions">
+                        <button *ngIf="action == 'details'" mat-icon-button matTooltip="Details"
+                            [routerLink]="[currentURL+'/', element.id]"><mat-icon>preview</mat-icon></button>
+                        <button *ngIf="action == 'update'" mat-icon-button matTooltip="Edit"
+                            [routerLink]="[currentURL+'/update/', element.id]"><mat-icon>edit</mat-icon></button>
+                        <button *ngIf="action == 'delete'" mat-icon-button matTooltip="Delete"
+                            (click)="handleDeleteEvent(element.id)"><mat-icon>delete</mat-icon></button>
+                    </span>
                 </div>
             </td>
         </ng-container>

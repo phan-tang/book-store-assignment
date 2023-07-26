@@ -12,13 +12,15 @@ export class DataTableComponent implements OnInit {
   @Input() displayedColumnTitles!: {
     [key: string]: string;
   };
+  @Input() actions!: string[];
   @Output() handleDelete = new EventEmitter<string>();
   displayedColumns: string[] = [];
   currentURL: string = this.router.url;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.displayedColumns = [...this.columns, 'action'];
+    this.displayedColumns = this.actions ? [...this.columns, 'actions'] : this.columns;
   }
 
   handleDeleteEvent(id: string) {
