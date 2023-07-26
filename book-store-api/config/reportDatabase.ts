@@ -4,7 +4,8 @@ import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize(`postgres://admin:admin@localhost:5432/postgres`, {
     define: {
-        timestamps: false
+        timestamps: false,
+        underscored: true
     }
 })
 

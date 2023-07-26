@@ -101,6 +101,7 @@ app.listen(port, async () => {
 // Gracefully disconnect from the database when the application is terminated
 process.on('SIGINT', async () => {
     await database.disconnectFromDatabase();
+    await sequelize.close();
     await consumer.disconnect();
     process.exit(0);
 });

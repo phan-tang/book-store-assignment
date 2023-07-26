@@ -36,7 +36,7 @@ class ReportService extends QueryService implements IReportService {
 
     async getBooks(time: string, query: IQuery): Promise<IReportCollection> {
         try {
-            if (isNaN(Date.parse(time))) {
+            if (time && isNaN(Date.parse(time))) {
                 return { data: null }
             }
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
@@ -53,7 +53,7 @@ class ReportService extends QueryService implements IReportService {
 
     async getCategoryReports(time: string, query: IQuery): Promise<IReportCollection> {
         try {
-            if (isNaN(Date.parse(time))) {
+            if (time && isNaN(Date.parse(time))) {
                 return { data: null }
             }
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
@@ -70,7 +70,7 @@ class ReportService extends QueryService implements IReportService {
 
     async getAuthorReports(time: string, query: IQuery): Promise<IReportCollection> {
         try {
-            if (isNaN(Date.parse(time))) {
+            if (time && isNaN(Date.parse(time))) {
                 return { data: null }
             }
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);

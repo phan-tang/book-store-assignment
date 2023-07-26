@@ -38,7 +38,7 @@ const Report = sequelize.define('report', {
     },
 });
 
-export const BookReport = sequelize.define('book', {
+export const BookReport = sequelize.define('book_report', {
     report_time: {
         type: Sequelize.DATE
     },
