@@ -1,0 +1,21 @@
+<div class="statistics-page min-vh-100 p-2">
+    <div class="d-flex align-items-center">
+        <div class="fw-bold fs-5 p-2">Report on {{time}}</div>
+        <div class="admin-page-function-buttons px-2">
+            <button mat-raised-button color="primary" routerLink="/admin/reports">
+                Report List</button>
+        </div>
+    </div>
+    <mat-progress-spinner *ngIf="!reportData"></mat-progress-spinner>
+    <div class="report-details"></div>
+    <div class="sub-resource-report py-2" *ngFor="let report of subResourceReports">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p class="fw-bold m-0">{{report.title}}</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-report-table [time]="time" [report]="report"></app-report-table>
+        </mat-expansion-panel>
+    </div>
+</div>

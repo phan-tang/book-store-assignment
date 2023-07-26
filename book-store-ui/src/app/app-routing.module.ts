@@ -50,6 +50,10 @@ const routes: Routes = [
         path: 'categories',
         loadChildren: () => import('./admin/admin-categories/admin-categories.module').then(m => m.AdminCategoriesModule)
       },
+      {
+        path: 'reports',
+        loadChildren: () => import('./admin/admin-report/admin-report.module').then(m => m.AdminReportModule)
+      }
     ]
   },
   {

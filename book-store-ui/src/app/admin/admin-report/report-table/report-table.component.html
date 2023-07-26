@@ -1,0 +1,17 @@
+<div class="report-table p-3" *ngIf="report">
+    <mat-grid-list class="border" [cols]="gridColumns" rowHeight="50px">
+        <div class="table-header">
+            <mat-grid-tile *ngFor="let column of columns" [colspan]="report.attributes[column].cols" [rowspan]="1"
+                class="border">
+                {{report.attributes[column].title}}
+            </mat-grid-tile>
+        </div>
+        <div class="table-content">
+            <div *ngFor="let dataRow of dataRows">
+                <mat-grid-tile *ngFor="let tile of dataRow" [colspan]="tile.cols" [rowspan]="tile.rows" class="border">
+                    <p class="text-truncate m-0">{{tile.value}}</p>
+                </mat-grid-tile>
+            </div>
+        </div>
+    </mat-grid-list>
+</div>

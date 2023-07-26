@@ -33,6 +33,12 @@ export class AdminLayoutComponent {
       title: "Users",
       type: "nav-link"
     },
+    {
+      link: "/admin/reports",
+      name: "report",
+      title: "Report",
+      type: "nav-link"
+    },
   ];
 
   rightItems: NavItem[] = [
