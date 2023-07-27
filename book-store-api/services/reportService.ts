@@ -3,18 +3,22 @@ import { IReportService } from '../interfaces/service';
 import { AuthorReport, BookReport, CategoryReport, Report } from '../models';
 import { IReportCollection, IQuery, ITransformedQuery, IReportResource } from '../interfaces/model';
 import QueryService from './queryService';
+import { ReportModelConfig } from '../config/models';
 
 @injectable()
 class ReportService extends QueryService implements IReportService {
 
     constructor() {
         super();
+        this.modelConfig = new ReportModelConfig();
     }
 
     async list(query: IQuery): Promise<IReportCollection> {
         try {
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
-            let result = await Report.findAndCountAll({});
+            let result = await Report.findAndCountAll({
+                order: [[transformedQuery.sortBy, transformedQuery.sort.toString()]]
+            });
             return {
                 data: result.rows,
                 total: result.count,

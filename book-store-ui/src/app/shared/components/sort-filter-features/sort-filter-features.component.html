@@ -1,0 +1,9 @@
+<div *ngIf="keys" class="d-flex">
+    <div *ngFor="let key of keys" class="px-1">
+        <app-dropdown [dropdown]="features[key]" [key]="key"
+            (handleClick)="handleClickDropdownItem($event)"></app-dropdown>
+    </div>
+    <div class="px-1">
+        <button mat-raised-button class="ml-auto" type="button" (click)="handleClickApply()">Apply</button>
+    </div>
+</div>

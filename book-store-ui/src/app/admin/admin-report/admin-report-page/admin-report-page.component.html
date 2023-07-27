@@ -4,6 +4,10 @@
             <div class="fw-bold fs-5 p-2">Report List</div>
         </div>
         <mat-progress-spinner *ngIf="!reportList"></mat-progress-spinner>
+        <div class="p-3">
+            <app-sort-filter-features [features]="features"
+                (handleApplySortFilter)="handleApplySortFilter($event)"></app-sort-filter-features>
+        </div>
         <div class="p-3" *ngIf="reportList">
             <app-data-table [data]="reportList.data" [columns]="displayedColumns"
                 [displayedColumnTitles]="displayedColumnTitles" [actions]="actions"></app-data-table>

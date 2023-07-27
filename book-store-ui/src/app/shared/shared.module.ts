@@ -24,6 +24,8 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { SortFilterFeaturesComponent } from './components/sort-filter-features/sort-filter-features.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +38,9 @@ import { DataTableComponent } from './components/data-table/data-table.component
         MainLayoutComponent,
         PageNotFoundComponent,
         AdminLayoutComponent,
-        DataTableComponent
+        DataTableComponent,
+        DropdownComponent,
+        SortFilterFeaturesComponent
     ],
     imports: [
         CommonModule,
@@ -59,6 +63,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
         PaginatorComponent,
         FormComponent,
         DataTableComponent,
+        SortFilterFeaturesComponent,
         MainLayoutComponent,
         AdminLayoutComponent
     ],

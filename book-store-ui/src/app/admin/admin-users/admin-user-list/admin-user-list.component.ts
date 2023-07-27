@@ -5,6 +5,8 @@ import { UserService } from '../users.service';
 import { ToastrService } from 'ngx-toastr';
 import { switchMap, catchError } from 'rxjs';
 
+import { Features } from 'src/app/shared/components/sort-filter-features/sort-filter-features.component';
+
 @Component({
   selector: 'app-admin-user-list',
   templateUrl: './admin-user-list.component.html',
@@ -22,7 +24,46 @@ export class AdminUserListComponent implements OnInit {
       email: 'Email',
       is_admin: 'Admin'
     };
-  actions: string[] = ['update', 'delete']
+  actions: string[] = ['update', 'delete'];
+  params: string = '';
+  features: Features = {
+    sort: {
+      value: {
+        title: 'Ascending',
+        value: 'asc'
+      },
+      options: [
+        {
+          title: 'Ascending',
+          value: 'asc'
+        },
+        {
+          title: 'Descending',
+          value: 'desc'
+        }
+      ]
+    },
+    'sort-by': {
+      value: {
+        title: 'First Name',
+        value: 'first_name'
+      },
+      options: [
+        {
+          title: 'Id',
+          value: 'id'
+        },
+        {
+          title: 'First Name',
+          value: 'first_name'
+        },
+        {
+          title: 'Last Name',
+          value: 'last_name'
+        }
+      ]
+    }
+  };
 
   constructor(private service: UserService, private toastrService: ToastrService) { }
 
@@ -33,14 +74,14 @@ export class AdminUserListComponent implements OnInit {
   }
 
   handleChangePage(event: PageEvent) {
-    this.service.getUsers(`?per-page=${event.pageSize}&page=${event.pageIndex + 1}`).subscribe((data: UserListData) => {
+    this.service.getUsers(`?${this.params}&per-page=${event.pageSize}&page=${event.pageIndex + 1}`).subscribe((data: UserListData) => {
       this.userList = data;
     });
   }
 
   handleDelete(id: string) {
     this.service.deleteUser(id).pipe(
-      switchMap(() => this.service.getUsers('')),
+      switchMap(() => this.service.getUsers(`?${this.params}`)),
       catchError(error => {
         throw error;
       })
@@ -53,5 +94,12 @@ export class AdminUserListComponent implements OnInit {
         this.toastrService.error('Deleted this user failed');
       }
     });
+  }
+
+  handleApplySortFilter(params: string) {
+    this.service.getUsers(`?${params}`).subscribe((data: UserListData) => {
+      this.userList = data;
+    });
+    this.params = params;
   }
 }

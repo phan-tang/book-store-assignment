@@ -1,0 +1,8 @@
+<div class="dropdown">
+    <button mat-raised-button color="primary" class="dropdown-btn">{{dropdown.value.title}}</button>
+    <div class="dropdown-content bg-white">
+        <button mat-button class="w-100 m-0 rounded-0" *ngFor="let option of dropdown.options" type="button"
+            (click)="handleClickDropdownItem(option)">{{option.title}}
+        </button>
+    </div>
+</div>

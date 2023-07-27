@@ -3,6 +3,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { ReportListData } from '../shared/report';
 import { ReportService } from '../report.service';
 
+import { Features } from 'src/app/shared/components/sort-filter-features/sort-filter-features.component';
+
 import { map } from 'rxjs';
 
 @Component({
@@ -26,7 +28,66 @@ export class AdminReportPageComponent implements OnInit {
       average_final_price: 'Average final price',
       quantity: 'Quantity'
     };
-  actions: string[] = ['details']
+  actions: string[] = ['details'];
+  params: string = '';
+  features: Features = {
+    sort: {
+      value: {
+        title: 'Ascending',
+        value: 'asc'
+      },
+      options: [
+        {
+          title: 'Ascending',
+          value: 'asc'
+        },
+        {
+          title: 'Descending',
+          value: 'desc'
+        }
+      ]
+    },
+    'sort-by': {
+      value: {
+        title: 'Report time',
+        value: 'report_time'
+      },
+      options: [
+        {
+          title: 'Report time',
+          value: 'report_time'
+        },
+        {
+          title: 'Authors',
+          value: 'authors'
+        },
+        {
+          title: 'Categories',
+          value: 'categories'
+        },
+        {
+          title: 'Price',
+          value: 'price'
+        },
+        {
+          title: 'Average price',
+          value: 'average_price'
+        },
+        {
+          title: 'Final price',
+          value: 'final_price'
+        },
+        {
+          title: 'Average final price',
+          value: 'average_final_price'
+        },
+        {
+          title: 'Quantity',
+          value: 'quantity'
+        },
+      ]
+    }
+  };
 
   constructor(private service: ReportService) { }
 
@@ -40,8 +101,15 @@ export class AdminReportPageComponent implements OnInit {
   }
 
   handleChangePage(event: PageEvent) {
-    this.service.getReports(`?per-page=${event.pageSize}&page=${event.pageIndex + 1}`).subscribe((data: ReportListData) => {
+    this.service.getReports(`?${this.params}&per-page=${event.pageSize}&page=${event.pageIndex + 1}`).subscribe((data: ReportListData) => {
       this.reportList = data;
     });
+  }
+
+  handleApplySortFilter(params: string) {
+    this.service.getReports(`?${params}`).subscribe((data: ReportListData) => {
+      this.reportList = data;
+    });
+    this.params = params;
   }
 }

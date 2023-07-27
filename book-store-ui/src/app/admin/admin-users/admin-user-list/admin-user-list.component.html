@@ -8,6 +8,10 @@
             </div>
         </div>
         <mat-progress-spinner *ngIf="!userList"></mat-progress-spinner>
+        <div class="p-3">
+            <app-sort-filter-features [features]="features"
+                (handleApplySortFilter)="handleApplySortFilter($event)"></app-sort-filter-features>
+        </div>
         <div class="p-3" *ngIf="userList">
             <app-data-table [data]="userList.data" [columns]="displayedColumns"
                 [displayedColumnTitles]="displayedColumnTitles" [actions]="actions"

@@ -1,6 +1,10 @@
 <div class="books-list-page w-100 min-vh-100 d-flex align-items-center justify-content-center">
     <mat-spinner *ngIf="!bookList"></mat-spinner>
     <div *ngIf="bookList" class="books-list-content w-100">
+        <div class="p-3">
+            <app-sort-filter-features [features]="features"
+                (handleApplySortFilter)="handleApplySortFilter($event)"></app-sort-filter-features>
+        </div>
         <div class="row books-list w-100 m-0 px-3">
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-2" *ngFor="let book of bookList.data">
                 <app-book-card [bookItem]="book"></app-book-card>

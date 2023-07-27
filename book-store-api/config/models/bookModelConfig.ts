@@ -9,6 +9,7 @@ class BookModelConfig extends BaseModelConfig {
             'summary',
             'price',
             'author_name',
+            'category_name'
         ];
         this.defaultSortField = 'name';
         this.perPage = 10;

@@ -8,6 +8,10 @@
             </div>
         </div>
         <mat-progress-spinner *ngIf="!bookList"></mat-progress-spinner>
+        <div class="p-3">
+            <app-sort-filter-features [features]="features"
+                (handleApplySortFilter)="handleApplySortFilter($event)"></app-sort-filter-features>
+        </div>
         <div class="p-3" *ngIf="bookList">
             <app-book-table *ngIf="bookList" [bookData]="bookList.data"></app-book-table>
             <app-paginator (changePage)="handleChangePage($event)" [numberOfItems]="bookList.total"></app-paginator>
