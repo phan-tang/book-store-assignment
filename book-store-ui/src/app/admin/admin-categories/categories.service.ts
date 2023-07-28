@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { CategoryListData, CategoryItemData } from './shared/category';
 
 import { environment } from 'src/environments/environment';
-import { FormItemOption } from 'src/app/shared/components/form/form.component';
 
 @Injectable()
 export class CategoryService {
@@ -16,12 +15,6 @@ export class CategoryService {
 
     getCategories(params: string): Observable<CategoryListData> {
         return this.http.get<CategoryListData>(environment.apiURL + this.resource + params);
-    }
-
-    getCategoriesUsedForForm(params: string): Observable<FormItemOption[]> {
-        return this.http.get<CategoryListData>(environment.apiURL + this.resource + params).pipe(
-            map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))
-        );
     }
 
     getCategoryById(id: string): Observable<CategoryItemData> {

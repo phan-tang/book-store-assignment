@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { BookService } from '../../../books/books.service';
 import { CategoryService } from '../../admin-categories/categories.service';
 
+import { map } from 'rxjs';
+
 @Component({
   selector: 'app-add-book-page',
   templateUrl: './add-book-page.component.html',
@@ -65,7 +67,9 @@ export class AddBookPageComponent implements OnInit {
   constructor(private bookService: BookService, private categoryService: CategoryService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
-    this.categoryService.getCategoriesUsedForForm('?sort-by=name').subscribe((data: FormItemOption[]) => {
+    this.categoryService.getCategories('?sort-by=name').pipe(
+      map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))
+    ).subscribe((data: FormItemOption[]) => {
       this.fields.filter(item => item.name === 'category_name')[0].options = data;
     });
   }

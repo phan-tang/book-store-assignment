@@ -35,8 +35,8 @@ export class AdminLayoutComponent {
     },
     {
       link: "/admin/reports",
-      name: "report",
-      title: "Report",
+      name: "reports",
+      title: "Reports",
       type: "nav-link"
     },
   ];

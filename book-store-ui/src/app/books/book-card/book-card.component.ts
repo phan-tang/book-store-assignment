@@ -4,7 +4,7 @@ import { BookItem } from '../shared/book';
 import { unit, imageBucketName } from 'src/app/shared/constants/app.constants';
 import { environment } from 'src/environments/environment';
 import { BookService } from '../books.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-card',

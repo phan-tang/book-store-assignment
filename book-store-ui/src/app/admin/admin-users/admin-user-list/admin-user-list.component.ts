@@ -62,6 +62,26 @@ export class AdminUserListComponent implements OnInit {
           value: 'last_name'
         }
       ]
+    },
+    'is-admin': {
+      value: {
+        title: 'All',
+        value: ''
+      },
+      options: [
+        {
+          title: 'All',
+          value: ''
+        },
+        {
+          title: 'Admin',
+          value: 'true'
+        },
+        {
+          title: 'User',
+          value: 'false'
+        }
+      ]
     }
   };
 

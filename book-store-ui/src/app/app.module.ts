@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
     CoreModule,
     ToastrModule.forRoot({
       timeOut: 5000,
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-bottom-right',
       preventDuplicates: false
     })
   ],

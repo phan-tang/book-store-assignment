@@ -60,6 +60,30 @@ export class BookListComponent implements OnInit {
           value: 'category_name'
         }
       ]
+    },
+    'category-name': {
+      value: {
+        title: 'All',
+        value: ''
+      },
+      options: [
+        {
+          title: 'All',
+          value: ''
+        },
+        {
+          title: 'Sport',
+          value: 'Sport'
+        },
+        {
+          title: 'Comedy',
+          value: 'Comedy'
+        },
+        {
+          title: 'Drama',
+          value: 'Drama'
+        },
+      ]
     }
   };
 
