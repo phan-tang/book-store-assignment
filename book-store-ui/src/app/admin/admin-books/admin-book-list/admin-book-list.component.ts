@@ -8,8 +8,9 @@ import { BookListData } from 'src/app/books/shared/book';
 import { Features } from 'src/app/shared/components/sort-filter-features/sort-filter-features.component';
 
 import { switchMap, catchError, map } from 'rxjs';
-import { CategoryService } from '../../admin-categories/categories.service';
-import { DropdownItem } from 'src/app/shared/components/dropdown/dropdown.component';
+import { Store } from '@ngrx/store';
+
+import { getCategoriesList } from 'src/app/store/selectors/categories.selector';
 
 @Component({
   selector: 'app-admin-book-list',
@@ -73,20 +74,23 @@ export class AdminBookListComponent implements OnInit {
         title: 'All',
         value: ''
       },
-      options: []
+      options: [
+        {
+          title: 'All',
+          value: ''
+        }
+      ]
     }
   };
 
-  constructor(private service: BookService, private categoryService: CategoryService, private toastrService: ToastrService) { }
+  constructor(private service: BookService, private toastrService: ToastrService, private store: Store) { }
 
   ngOnInit(): void {
     this.service.getBooks('').subscribe((data: BookListData) => {
       this.bookList = data;
     });
-    this.categoryService.getCategories('?sort-by=name').pipe(
-      map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))
-    ).subscribe((data: DropdownItem[]) => {
-      this.features['category-name'].options = data;
+    this.store.select(getCategoriesList).pipe(map(({ categories }) => categories.map(item => ({ value: item.name, title: item.name })))).subscribe((data: any) => {
+      this.features['category-name'].options = [{ title: 'All', value: '' }, ...data];
     });
   }
 

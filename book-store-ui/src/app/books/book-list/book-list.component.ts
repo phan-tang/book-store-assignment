@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { Store } from '@ngrx/store';
+
 import { BookService } from '../books.service';
 import { BookListData } from '../shared/book';
-import { PageEvent } from '@angular/material/paginator';
 import { Features } from 'src/app/shared/components/sort-filter-features/sort-filter-features.component';
+
+import { CategoryState } from 'src/app/store/models/state.model';
+
+import { map } from 'rxjs';
+import { getCategoriesList } from 'src/app/store/selectors/categories.selector';
 
 @Component({
   selector: 'app-book-list',
@@ -70,28 +77,19 @@ export class BookListComponent implements OnInit {
         {
           title: 'All',
           value: ''
-        },
-        {
-          title: 'Sport',
-          value: 'Sport'
-        },
-        {
-          title: 'Comedy',
-          value: 'Comedy'
-        },
-        {
-          title: 'Drama',
-          value: 'Drama'
-        },
+        }
       ]
     }
   };
 
-  constructor(private service: BookService) { }
+  constructor(private service: BookService, private store: Store<CategoryState>) { }
 
   ngOnInit(): void {
     this.service.getBooks('').subscribe((data: BookListData) => {
       this.bookList = data;
+    });
+    this.store.select(getCategoriesList).pipe(map(({ categories }) => categories.map(item => ({ value: item.name, title: item.name })))).subscribe((data: any) => {
+      this.features['category-name'].options = [{ title: 'All', value: '' }, ...data];
     });
   }
 

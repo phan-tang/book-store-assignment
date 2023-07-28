@@ -15,6 +15,11 @@ class CategoryController implements ICategoryController {
         res.send(result);
     }
 
+    async listAll(req: Request, res: Response, next: NextFunction) {
+        let result = await this.service.listAll(req.query);
+        res.send(result);
+    }
+
     async create(req: Request, res: Response, next: NextFunction) {
         let result = await this.service.create(req.body);
         if (!result.data) {

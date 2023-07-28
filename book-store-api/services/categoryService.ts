@@ -35,6 +35,19 @@ class CategoryService extends QueryService implements ICategoryService {
         }
     }
 
+    async listAll(query: IQuery): Promise<ICategoryCollection> {
+        try {
+            let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
+            let [total, data] = await Promise.all([
+                Category.countDocuments(),
+                Category.find().sort([[transformedQuery.sortBy, transformedQuery.sort]])
+            ]);
+            return { data, total, page: 1 };
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async find(id: string | number): Promise<ICategoryResource> {
         try {
             return { data: mongoose.isObjectIdOrHexString(id) ? await Category.findById(id) : null };

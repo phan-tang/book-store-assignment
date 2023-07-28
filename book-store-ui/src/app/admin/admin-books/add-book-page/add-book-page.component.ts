@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FormItem, FormItemOption } from 'src/app/shared/components/form/form.component';
+import { FormItem } from 'src/app/shared/components/form/form.component';
 import { BookItemData } from '../../../books/shared/book';
 
 import { ToastrService } from 'ngx-toastr';
 import { BookService } from '../../../books/books.service';
-import { CategoryService } from '../../admin-categories/categories.service';
+
+import { Store } from '@ngrx/store';
+import { getCategoriesList } from 'src/app/store/selectors/categories.selector';
 
 import { map } from 'rxjs';
 
@@ -64,12 +66,10 @@ export class AddBookPageComponent implements OnInit {
       type: 'file-upload'
     }
   ];
-  constructor(private bookService: BookService, private categoryService: CategoryService, private toastrService: ToastrService) { }
+  constructor(private bookService: BookService, private toastrService: ToastrService, private store: Store) { }
 
   ngOnInit(): void {
-    this.categoryService.getCategories('?sort-by=name').pipe(
-      map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))
-    ).subscribe((data: FormItemOption[]) => {
+    this.store.select(getCategoriesList).pipe(map(({ categories }) => categories.map(item => ({ value: item.name, title: item.name })))).subscribe((data: any) => {
       this.fields.filter(item => item.name === 'category_name')[0].options = data;
     });
   }
