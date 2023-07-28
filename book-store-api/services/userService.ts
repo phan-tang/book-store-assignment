@@ -21,8 +21,8 @@ class UserService extends QueryService implements IUserService {
             //Just admin can get list of users
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
             let [total, data] = await Promise.all([
-                User.countDocuments(),
-                User.find({}).
+                User.countDocuments(transformedQuery.filter),
+                User.find(transformedQuery.filter).
                     sort([[transformedQuery.sortBy, transformedQuery.sort]]).
                     skip((transformedQuery.page - 1) * transformedQuery.perPage).
                     limit(transformedQuery.perPage)

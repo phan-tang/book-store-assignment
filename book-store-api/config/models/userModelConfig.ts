@@ -10,6 +10,7 @@ class UserModelConfig extends BaseModelConfig {
         ];
         this.defaultSortField = 'first_name';
         this.perPage = 10;
+        this.filterFields = [{ type: 'boolean', key: 'is_admin' }];
     }
 }
 

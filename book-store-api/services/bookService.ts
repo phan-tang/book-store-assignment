@@ -19,8 +19,8 @@ class BookService extends QueryService implements IBookService {
         try {
             let transformedQuery: ITransformedQuery = this.getTransformedQuery(query);
             let [total, data] = await Promise.all([
-                Book.countDocuments(),
-                Book.find({}).
+                Book.countDocuments(transformedQuery.filter),
+                Book.find(transformedQuery.filter).
                     sort([[transformedQuery.sortBy, transformedQuery.sort]]).
                     skip((transformedQuery.page - 1) * transformedQuery.perPage).
                     limit(transformedQuery.perPage)

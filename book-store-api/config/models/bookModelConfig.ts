@@ -13,6 +13,10 @@ class BookModelConfig extends BaseModelConfig {
         ];
         this.defaultSortField = 'name';
         this.perPage = 10;
+        this.filterFields = [
+            { type: 'string', key: 'category_name' },
+            { type: 'string', key: 'author_name' }
+        ];
     }
 }
 

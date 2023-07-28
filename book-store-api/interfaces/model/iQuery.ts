@@ -5,6 +5,7 @@ interface ITransformedQuery {
     sortBy: string;
     perPage: number;
     page: number;
+    filter: Object;
 }
 
 interface IQuery {

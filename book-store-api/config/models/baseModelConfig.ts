@@ -4,12 +4,17 @@ class BaseModelConfig {
     protected defaultSortField: string;
     protected perPage: number;
     protected page: number;
+    protected filterFields: {
+        type: 'boolean' | 'string' | 'number';
+        key: string;
+    }[];
 
     constructor() {
         this.sortFields = [];
         this.defaultSortField = 'id';
         this.perPage = 15;
         this.page = 1;
+        this.filterFields = [];
     }
 
     getSortFields() {
@@ -26,6 +31,15 @@ class BaseModelConfig {
 
     getPage() {
         return this.page;
+    }
+
+    getFilterFields() {
+        return this.filterFields;
+    }
+
+    getFilterField(key: string) {
+        let filterField = this.filterFields.filter((field) => field.key === key);
+        return filterField.length > 0 ? filterField[0] : null;
     }
 }
 
