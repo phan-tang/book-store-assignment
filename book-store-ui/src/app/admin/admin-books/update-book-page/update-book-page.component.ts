@@ -9,7 +9,7 @@ import { CategoryService } from '../../admin-categories/categories.service';
 import { FormItem, FormItemOption } from 'src/app/shared/components/form/form.component';
 import { BookItemData } from 'src/app/books/shared/book';
 
-import { switchMap, catchError } from 'rxjs';
+import { switchMap, catchError, map } from 'rxjs';
 
 @Component({
   selector: 'app-update-book-page',
@@ -91,7 +91,9 @@ export class UpdateBookPageComponent implements OnInit {
         this.router.navigate(['*']);
       }
     });
-    this.categoryService.getCategoriesUsedForForm('?sort-by=name').subscribe((data: FormItemOption[]) => {
+    this.categoryService.getCategories('?sort-by=name').pipe(
+      map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))
+    ).subscribe((data: FormItemOption[]) => {
       this.fields.filter(item => item.name === 'category_name')[0].options = data;
     });
   }

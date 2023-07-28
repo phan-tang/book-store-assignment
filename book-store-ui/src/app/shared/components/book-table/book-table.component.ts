@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BookItem } from '../shared/book';
+import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges } from '@angular/core';
+import { BookItem } from '../../../books/shared/book';
 
 import { environment } from 'src/environments/environment';
 import { unit, imageBucketName } from 'src/app/shared/constants/app.constants';
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 })
 export class BookTableComponent implements OnChanges {
   @Input() bookData!: BookItem[];
-  displayedColumns: string[] = ['name', 'final_price', 'quantity'];
+  @Output() handleDelete = new EventEmitter<string>();
+  displayedColumns: string[] = ['name', 'final_price', 'quantity', 'action'];
   unit: string = unit;
   currentURL: string = this.router.url;
 
@@ -20,5 +21,9 @@ export class BookTableComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.bookData = this.bookData.map((item) => ({ ...item, imageLink: [environment.s3URL, imageBucketName, item.image].join('/') }))
+  }
+
+  handleDeleteEvent(id: string) {
+    this.handleDelete.emit(id);
   }
 }

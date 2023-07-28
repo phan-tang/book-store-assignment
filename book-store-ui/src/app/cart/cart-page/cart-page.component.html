@@ -3,7 +3,7 @@
     <div *ngIf="cartItems" class="cart-items-list row w-100">
         <div class="fw-bold fs-5 py-2">Cart</div>
         <div class="py-3">
-            <app-book-table [bookData]="cartItems"></app-book-table>
+            <app-book-table [bookData]="cartItems" (handleDelete)="handleDelete($event)"></app-book-table>
         </div>
         <div class="d-flex py-5">
             <div class="discount-code">

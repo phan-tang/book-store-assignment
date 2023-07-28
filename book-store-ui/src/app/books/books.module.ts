@@ -14,14 +14,12 @@ import { BookListComponent } from './book-list/book-list.component';
 
 import { SharedModule } from '../shared/shared.module';
 import { BookDetailsComponent } from './book-details/book-details.component';
-import { BookTableComponent } from './book-table/book-table.component';
 
 @NgModule({
   declarations: [
     BookCardComponent,
     BookListComponent,
-    BookDetailsComponent,
-    BookTableComponent
+    BookDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -36,8 +34,7 @@ import { BookTableComponent } from './book-table/book-table.component';
   ],
   exports: [
     BookListComponent,
-    BookDetailsComponent,
-    BookTableComponent
+    BookDetailsComponent
   ],
   providers: []
 })

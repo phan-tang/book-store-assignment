@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
+import { ToastrService } from 'ngx-toastr';
 import { BookService } from 'src/app/books/books.service';
 
 import { BookListData } from 'src/app/books/shared/book';
 import { Features } from 'src/app/shared/components/sort-filter-features/sort-filter-features.component';
+
+import { switchMap, catchError, map } from 'rxjs';
+import { CategoryService } from '../../admin-categories/categories.service';
+import { DropdownItem } from 'src/app/shared/components/dropdown/dropdown.component';
 
 @Component({
   selector: 'app-admin-book-list',
@@ -62,14 +67,26 @@ export class AdminBookListComponent implements OnInit {
           value: 'category_name'
         }
       ]
+    },
+    'category-name': {
+      value: {
+        title: 'All',
+        value: ''
+      },
+      options: []
     }
   };
 
-  constructor(private service: BookService) { }
+  constructor(private service: BookService, private categoryService: CategoryService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.service.getBooks('').subscribe((data: BookListData) => {
       this.bookList = data;
+    });
+    this.categoryService.getCategories('?sort-by=name').pipe(
+      map(({ data }) => data.map(item => ({ value: item.name, title: item.name })))
+    ).subscribe((data: DropdownItem[]) => {
+      this.features['category-name'].options = data;
     });
   }
 
@@ -84,5 +101,22 @@ export class AdminBookListComponent implements OnInit {
       this.bookList = data;
     });
     this.params = params;
+  }
+
+  handleDelete(id: string) {
+    this.service.deleteBook(id).pipe(
+      switchMap(() => this.service.getBooks(`?${this.params}`)),
+      catchError(error => {
+        throw error;
+      })
+    ).subscribe({
+      next: (data: BookListData) => {
+        this.bookList = data;
+        this.toastrService.success('Deleted this book successfully');
+      },
+      error: error => {
+        this.toastrService.error('Deleted this book failed');
+      }
+    });
   }
 }

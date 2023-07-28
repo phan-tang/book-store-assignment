@@ -26,6 +26,7 @@ import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.compone
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SortFilterFeaturesComponent } from './components/sort-filter-features/sort-filter-features.component';
+import { BookTableComponent } from './components/book-table/book-table.component';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { SortFilterFeaturesComponent } from './components/sort-filter-features/s
         PageNotFoundComponent,
         AdminLayoutComponent,
         DataTableComponent,
+        BookTableComponent,
         DropdownComponent,
         SortFilterFeaturesComponent
     ],
@@ -63,6 +65,7 @@ import { SortFilterFeaturesComponent } from './components/sort-filter-features/s
         PaginatorComponent,
         FormComponent,
         DataTableComponent,
+        BookTableComponent,
         SortFilterFeaturesComponent,
         MainLayoutComponent,
         AdminLayoutComponent

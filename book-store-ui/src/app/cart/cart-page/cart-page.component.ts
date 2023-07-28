@@ -18,18 +18,24 @@ export class CartPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartItems = this.service.getCartItems();
-    this.cartTotal = this.getCartTotal(this.cartItems);
+    this.cartTotal = this.getCartTotal();
   }
 
   applyDiscountCode() {
     console.log(this.discountCode);
   }
 
-  getCartTotal(data: BookItem[]) {
+  getCartTotal() {
     let total = 0;
-    data.forEach(item => {
+    this.cartItems && this.cartItems.forEach(item => {
       total += item.quantity * parseFloat(item.final_price);
     })
     return total.toFixed(2);
+  }
+
+  handleDelete(id: string) {
+    this.cartItems = this.cartItems && this.cartItems.filter(item => item.id !== id);
+    this.cartTotal = this.getCartTotal();
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
   }
 }
